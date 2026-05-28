@@ -432,17 +432,17 @@ const aboutData = about ?? {
           ).map((item) => (
             <div
               key={item.title}
-              className="relative overflow-hidden rounded-[2rem] bg-[#D8EAC7] p-4 shadow-xl md:p-6"
+              className="relative overflow-hidden rounded-[2rem] bg-[#D8EAC7] p-3 shadow-xl md:p-6"
             >
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#E89A3D] opacity-20" />
               <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-white opacity-50" />
 
-              <div className="relative rounded-[1.5rem] bg-white px-4 py-8 shadow-sm md:px-12 md:py-12">
-                <p className="mx-auto mb-5 inline-block rounded-full bg-[#E89A3D] px-4 py-2 text-xs font-bold tracking-[0.14em] text-white shadow-sm md:px-5 md:text-sm md:tracking-[0.18em]">
+              <div className="relative rounded-[1.5rem] bg-white px-4 py-6 shadow-sm md:px-12 md:py-12">
+                <p className="mx-auto mb-4 inline-block rounded-full bg-[#E89A3D] px-4 py-2 text-xs font-bold tracking-[0.08em] text-white shadow-sm md:mb-5 md:px-5 md:text-sm md:tracking-[0.18em]">
                   {item.label}
                 </p>
 
-                <div className="mb-8 space-y-3">
+                <div className="mb-6 space-y-3 md:mb-8">
                   <p className="text-sm font-bold leading-relaxed tracking-[0.08em] text-[#6C8F5D] md:tracking-[0.2em]">
                     {item.period}
                   </p>
@@ -452,12 +452,12 @@ const aboutData = about ?? {
                   </p>
                 </div>
 
-                <div className="mb-8">
-                  <p className="mb-2 text-lg font-bold text-gray-700">
+                <div className="mb-6 md:mb-8">
+                  <p className="mx-auto mb-2 max-w-xs text-balance text-base font-bold leading-relaxed text-gray-700 md:text-lg">
                     {item.admissionOffer}
                   </p>
 
-                  <h2 className="text-4xl font-bold leading-tight tracking-wide text-[#E89A3D] md:text-6xl">
+                  <h2 className="mx-auto max-w-xs whitespace-normal break-keep text-balance text-3xl font-bold leading-tight tracking-wide text-[#E89A3D] md:max-w-none md:text-6xl">
                     {item.title}
                   </h2>
                 </div>
@@ -466,18 +466,18 @@ const aboutData = about ?? {
                   さらに
                 </p>
 
-                <p className="mx-auto mb-8 inline-block rounded-full bg-[#D8EAC7] px-5 py-2 text-sm font-bold text-gray-800 shadow-sm">
+                <p className="mx-auto mb-6 inline-block rounded-full bg-[#D8EAC7] px-5 py-2 text-sm font-bold text-gray-800 shadow-sm md:mb-8">
                   {item.discountOffer}
                 </p>
 
-                <div className="mx-auto mb-8 max-w-sm rounded-3xl border border-[#D8EAC7] bg-[#fffdf8] p-5 md:p-6">
-                  <p className="mb-4 text-lg font-bold text-gray-800">
+                <div className="mx-auto mb-6 max-w-sm rounded-3xl border border-[#D8EAC7] bg-[#fffdf8] p-4 md:mb-8 md:p-6">
+                  <p className="mb-4 text-base font-bold text-gray-800 md:text-lg">
                     {item.planName}
                   </p>
 
-                  <div className="grid grid-cols-1 items-center justify-center gap-4 md:grid-cols-[1fr_auto_1fr] md:items-end">
-                    <div>
-                      <p className="mb-1 text-xs font-bold text-gray-400">
+                  <div className="grid grid-cols-1 items-stretch justify-center gap-3 md:grid-cols-[1fr_auto_1fr] md:items-end md:gap-4">
+                    <div className="rounded-2xl bg-white px-4 py-3 shadow-sm md:bg-transparent md:px-0 md:py-0 md:shadow-none">
+                      <p className="mb-1 text-sm font-bold text-gray-500 md:text-xs md:text-gray-400">
                         通常
                       </p>
                       <p className="text-xl font-bold text-gray-400 line-through">
@@ -485,15 +485,15 @@ const aboutData = about ?? {
                       </p>
                     </div>
 
-                    <p className="text-2xl font-bold text-[#E89A3D] md:pb-1">
+                    <p className="text-xl font-bold text-[#E89A3D] md:pb-1 md:text-2xl">
                       ↓
                     </p>
 
-                    <div>
-                      <p className="mb-1 text-xs font-bold text-[#E89A3D]">
+                    <div className="rounded-2xl bg-white px-4 py-4 shadow-sm md:bg-transparent md:px-0 md:py-0 md:shadow-none">
+                      <p className="mb-1 text-sm font-bold text-[#E89A3D] md:text-xs">
                         キャンペーン
                       </p>
-                      <p className="text-4xl font-bold leading-tight text-[#E89A3D] md:text-5xl">
+                      <p className="whitespace-nowrap text-4xl font-bold leading-tight text-[#E89A3D] md:text-5xl">
                         {item.campaignPrice}
                       </p>
                     </div>
@@ -511,7 +511,7 @@ const aboutData = about ?? {
                     href={item.ctaUrl || cta.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-8 inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-4 font-bold text-white shadow-md md:px-10"
+                    className="mt-8 inline-block w-[90%] max-w-sm whitespace-nowrap rounded-full bg-[#E89A3D] px-6 py-4 text-center font-bold text-white shadow-md md:w-auto md:px-10"
                   >
                     {item.ctaText || cta.text}
                   </a>

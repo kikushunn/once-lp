@@ -33,7 +33,6 @@ export default async function Home() {
 
 const cta = await getCTA();
 const hero = await getHero();
-console.log("HERO", hero);
 const about = await getAbout();
 const navItems = await getNavItems();
 const worries = await getWorries();
@@ -417,13 +416,13 @@ const aboutData = about ?? {
                 {
                   label: "今月限定",
                   period: "○月〜○月限定",
-                  limitedCount: "先着○名様限定",
+                  limit: "先着30名様限定",
                   title: "入会金0円",
                   text: "まずはお気軽に体験予約ください",
                   admissionOffer: "入会金＋体験料",
                   discountOffer: "月会費永久割引",
                   planName: "月4回プラン",
-                  regularPrice: "29,700円",
+                  normalPrice: "通常29,700円",
                   campaignPrice: "28,000円",
                   ctaText: "",
                   ctaUrl: "",
@@ -448,7 +447,7 @@ const aboutData = about ?? {
                   </p>
 
                   <p className="inline-block rounded-full bg-[#f8f5ef] px-4 py-2 text-sm font-bold text-gray-700">
-                    {item.limitedCount}
+                    {item.limit}
                   </p>
                 </div>
 
@@ -481,7 +480,7 @@ const aboutData = about ?? {
                         通常
                       </p>
                       <p className="text-xl font-bold text-gray-400 line-through">
-                        {item.regularPrice}
+                        {item.normalPrice}
                       </p>
                     </div>
 

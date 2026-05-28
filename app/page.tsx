@@ -33,6 +33,7 @@ export default async function Home() {
 
 const cta = await getCTA();
 const hero = await getHero();
+console.log("HERO", hero);
 const about = await getAbout();
 const navItems = await getNavItems();
 const worries = await getWorries();
@@ -414,40 +415,108 @@ const aboutData = about ?? {
             ? campaigns
             : [
                 {
+                  label: "今月限定",
+                  period: "○月〜○月限定",
+                  limitedCount: "先着○名様限定",
                   title: "入会金0円",
                   text: "まずはお気軽に体験予約ください",
+                  admissionOffer: "入会金＋体験料",
+                  discountOffer: "月会費永久割引",
+                  planName: "月4回プラン",
+                  regularPrice: "29,700円",
+                  campaignPrice: "28,000円",
+                  ctaText: "",
+                  ctaUrl: "",
                 },
               ]
           ).map((item) => (
             <div
               key={item.title}
-              className="relative overflow-hidden rounded-3xl bg-[#D8EAC7] p-8 shadow-lg md:p-12"
+              className="relative overflow-hidden rounded-[2rem] bg-[#D8EAC7] p-4 shadow-xl md:p-6"
             >
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#E89A3D] opacity-20" />
-              <div className="absolute -bottom-12 -left-12 h-36 w-36 rounded-full bg-white opacity-40" />
+              <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-white opacity-50" />
 
-              <p className="relative mx-auto mb-5 inline-block rounded-full bg-[#E89A3D] px-5 py-2 text-sm font-bold tracking-[0.18em] text-white shadow-sm">
-                今月限定
-              </p>
+              <div className="relative rounded-[1.5rem] bg-white px-6 py-10 shadow-sm md:px-12 md:py-12">
+                <p className="mx-auto mb-5 inline-block rounded-full bg-[#E89A3D] px-5 py-2 text-sm font-bold tracking-[0.18em] text-white shadow-sm">
+                  {item.label}
+                </p>
 
-              <h2 className="relative mb-6 text-4xl font-bold text-gray-800">
-                {item.title}
-              </h2>
+                <div className="mb-8 space-y-3">
+                  <p className="text-sm font-bold tracking-[0.2em] text-[#6C8F5D]">
+                    {item.period}
+                  </p>
 
-              <p className="relative text-lg leading-8 text-gray-700">
-                {item.text}
-              </p>
+                  <p className="inline-block rounded-full bg-[#f8f5ef] px-4 py-2 text-sm font-bold text-gray-700">
+                    {item.limitedCount}
+                  </p>
+                </div>
 
-              {cta.isVisible && (
-                <a
-                  href={cta.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative mt-8 inline-block rounded-full bg-[#E89A3D] px-10 py-4 font-bold text-white shadow-md"
-                >
-                  {cta.text}
-                </a>
-              )}
+                <div className="mb-8">
+                  <p className="mb-2 text-lg font-bold text-gray-700">
+                    {item.admissionOffer}
+                  </p>
+
+                  <h2 className="text-5xl font-bold tracking-wide text-[#E89A3D] md:text-6xl">
+                    {item.title}
+                  </h2>
+                </div>
+
+                <p className="mb-5 text-base font-bold text-gray-500">
+                  さらに
+                </p>
+
+                <p className="mx-auto mb-8 inline-block rounded-full bg-[#D8EAC7] px-5 py-2 text-sm font-bold text-gray-800 shadow-sm">
+                  {item.discountOffer}
+                </p>
+
+                <div className="mx-auto mb-8 max-w-sm rounded-3xl border border-[#D8EAC7] bg-[#fffdf8] p-6">
+                  <p className="mb-4 text-lg font-bold text-gray-800">
+                    {item.planName}
+                  </p>
+
+                  <div className="flex items-end justify-center gap-4">
+                    <div>
+                      <p className="mb-1 text-xs font-bold text-gray-400">
+                        通常
+                      </p>
+                      <p className="text-xl font-bold text-gray-400 line-through">
+                        {item.regularPrice}
+                      </p>
+                    </div>
+
+                    <p className="pb-1 text-2xl font-bold text-[#E89A3D]">
+                      ↓
+                    </p>
+
+                    <div>
+                      <p className="mb-1 text-xs font-bold text-[#E89A3D]">
+                        キャンペーン
+                      </p>
+                      <p className="text-4xl font-bold text-[#E89A3D] md:text-5xl">
+                        {item.campaignPrice}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {item.text && (
+                  <p className="mx-auto max-w-xl whitespace-pre-line text-base leading-8 text-gray-600">
+                    {item.text}
+                  </p>
+                )}
+
+                {cta.isVisible && (
+                  <a
+                    href={item.ctaUrl || cta.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-8 inline-block rounded-full bg-[#E89A3D] px-10 py-4 font-bold text-white shadow-md"
+                  >
+                    {item.ctaText || cta.text}
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>

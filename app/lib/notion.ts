@@ -42,8 +42,18 @@ type NotionPrice = {
 
 type NotionCampaign = {
   id: string;
+  label: string;
+  period: string;
+  limitedCount: string;
   title: string;
   text: string;
+  admissionOffer: string;
+  discountOffer: string;
+  planName: string;
+  regularPrice: string;
+  campaignPrice: string;
+  ctaText: string;
+  ctaUrl: string;
   order: number;
   imageUrl: string;
 };
@@ -242,7 +252,7 @@ export async function getHero() {
         heroFallback.buttonText,
       buttonUrl:
         page?.properties?.["ボタンURL"]?.url || heroFallback.buttonUrl,
-      imageUrl: fileUrl(page) || heroFallback.imageUrl,
+      imageUrl: fileUrl(page, "image") || heroFallback.imageUrl,
       isVisible:
         page?.properties?.["表示ON/OFF"]?.checkbox ?? heroFallback.isVisible,
     };
@@ -453,11 +463,41 @@ export async function getReasons(): Promise<NotionReason[]> {
     return (
       data.results?.map((page: NotionPage) => ({
         id: page.id,
+        label:
+          page?.properties?.["ラベル"]?.rich_text?.[0]?.plain_text ||
+          "今月限定",
+        period:
+          page?.properties?.["期間"]?.rich_text?.[0]?.plain_text ||
+          "○月〜○月限定",
+        limitedCount:
+          page?.properties?.["人数限定"]?.rich_text?.[0]?.plain_text ||
+          "先着○名様限定",
         title:
           page?.properties?.["タイトル"]?.title?.[0]?.plain_text ||
           "",
         text:
           page?.properties?.["説明文"]?.rich_text?.[0]?.plain_text ||
+          "",
+        admissionOffer:
+          page?.properties?.["入会金訴求"]?.rich_text?.[0]?.plain_text ||
+          "入会金＋体験料",
+        discountOffer:
+          page?.properties?.["永久割引訴求"]?.rich_text?.[0]?.plain_text ||
+          "月会費永久割引",
+        planName:
+          page?.properties?.["プラン名"]?.rich_text?.[0]?.plain_text ||
+          "月4回プラン",
+        regularPrice:
+          page?.properties?.["通常価格"]?.rich_text?.[0]?.plain_text ||
+          "29,700円",
+        campaignPrice:
+          page?.properties?.["キャンペーン価格"]?.rich_text?.[0]?.plain_text ||
+          "28,000円",
+        ctaText:
+          page?.properties?.["CTA文言"]?.rich_text?.[0]?.plain_text ||
+          "",
+        ctaUrl:
+          page?.properties?.["CTAリンク"]?.url ||
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,

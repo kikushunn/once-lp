@@ -8,6 +8,10 @@ type NotionPage = {
       url?: string;
       checkbox?: boolean;
       number?: number;
+      files?: {
+        file?: { url?: string };
+        external?: { url?: string };
+      }[];
     }
   >;
 };
@@ -16,6 +20,7 @@ type NotionListItem = {
   id: string;
   name: string;
   order: number;
+  imageUrl: string;
 };
 
 type NotionReason = {
@@ -23,6 +28,7 @@ type NotionReason = {
   title: string;
   text: string;
   order: number;
+  imageUrl: string;
 };
 
 type NotionPrice = {
@@ -31,6 +37,7 @@ type NotionPrice = {
   price: string;
   description: string;
   order: number;
+  imageUrl: string;
 };
 
 type NotionCampaign = {
@@ -38,6 +45,7 @@ type NotionCampaign = {
   title: string;
   text: string;
   order: number;
+  imageUrl: string;
 };
 
 type NotionReview = {
@@ -46,6 +54,7 @@ type NotionReview = {
   comment: string;
   age: string;
   order: number;
+  imageUrl: string;
 };
 
 type NotionStore = {
@@ -55,6 +64,7 @@ type NotionStore = {
   hours: string;
   lineUrl: string;
   order: number;
+  imageUrl: string;
 };
 
 type NotionFlow = {
@@ -62,6 +72,7 @@ type NotionFlow = {
   title: string;
   description: string;
   order: number;
+  imageUrl: string;
 };
 
 type NotionFaq = {
@@ -69,6 +80,7 @@ type NotionFaq = {
   question: string;
   answer: string;
   order: number;
+  imageUrl: string;
 };
 
 type NotionFinalCTA = {
@@ -77,6 +89,7 @@ type NotionFinalCTA = {
   buttonText: string;
   buttonUrl: string;
   isVisible: boolean;
+  imageUrl: string;
 };
 
 type NotionAbout = {
@@ -84,6 +97,7 @@ type NotionAbout = {
   text: string;
   points: string[];
   isVisible: boolean;
+  imageUrl: string;
 };
 
 type NotionNavItem = {
@@ -113,6 +127,12 @@ const heroFallback = {
   imageUrl: "",
   isVisible: true,
 };
+
+function fileUrl(page: NotionPage | undefined, propertyName = "image") {
+  const file = page?.properties?.[propertyName]?.files?.[0];
+
+  return file?.file?.url || file?.external?.url || "";
+}
 
 const navFallback: NotionNavItem[] = [
   { id: "about", label: "ONCEとは", href: "#about", isHighlighted: false, order: 1 },
@@ -222,7 +242,7 @@ export async function getHero() {
         heroFallback.buttonText,
       buttonUrl:
         page?.properties?.["ボタンURL"]?.url || heroFallback.buttonUrl,
-      imageUrl: page?.properties?.["画像URL"]?.url || heroFallback.imageUrl,
+      imageUrl: fileUrl(page) || heroFallback.imageUrl,
       isVisible:
         page?.properties?.["表示ON/OFF"]?.checkbox ?? heroFallback.isVisible,
     };
@@ -276,6 +296,7 @@ export async function getWorries(): Promise<NotionListItem[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -329,6 +350,7 @@ export async function getRisks(): Promise<NotionListItem[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -382,6 +404,7 @@ export async function getServices(): Promise<NotionListItem[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -438,6 +461,7 @@ export async function getReasons(): Promise<NotionReason[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -491,6 +515,7 @@ export async function getLessons(): Promise<NotionListItem[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -550,6 +575,7 @@ export async function getPrices(): Promise<NotionPrice[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -606,6 +632,7 @@ export async function getCampaigns(): Promise<NotionCampaign[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -665,6 +692,7 @@ export async function getReviews(): Promise<NotionReview[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -727,6 +755,7 @@ export async function getStores(): Promise<NotionStore[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -783,6 +812,7 @@ export async function getFlow(): Promise<NotionFlow[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -839,6 +869,7 @@ export async function getFaqs(): Promise<NotionFaq[]> {
           "",
         order:
           page?.properties?.["表示順"]?.number || 0,
+        imageUrl: fileUrl(page),
       })) || []
     );
   } catch {
@@ -898,6 +929,7 @@ export async function getFinalCTA(): Promise<NotionFinalCTA | null> {
         "#",
       isVisible:
         page?.properties?.["表示ON/OFF"]?.checkbox ?? true,
+      imageUrl: fileUrl(page),
     };
   } catch {
     return null;
@@ -951,6 +983,7 @@ export async function getAbout(): Promise<NotionAbout | null> {
       ].filter(Boolean),
       isVisible:
         page?.properties?.["表示ON/OFF"]?.checkbox ?? true,
+      imageUrl: fileUrl(page),
     };
   } catch {
     return null;

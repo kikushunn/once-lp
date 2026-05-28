@@ -53,6 +53,7 @@ const finalCTAData = finalCTA ?? {
   buttonText: cta.text,
   buttonUrl: cta.url,
   isVisible: cta.isVisible,
+  imageUrl: "/images/cta.jpg",
 };
 const aboutData = about ?? {
   title: "スタジオONCEとは？",
@@ -184,7 +185,7 @@ const aboutData = about ?? {
 
       <ImageBox
         label="Hero"
-        image="/images/hero.jpg"
+        image={hero.imageUrl || "/images/hero.jpg"}
       />
     </div>
 
@@ -234,7 +235,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="悩み共感"
-          image="/images/worry.jpg"
+          image={worries[0]?.imageUrl || "/images/worry.jpg"}
         />
 
         <div className="mx-auto max-w-3xl space-y-4">
@@ -266,7 +267,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="放置リスク"
-          image="/images/risk.jpg"
+          image={risks[0]?.imageUrl || "/images/risk.jpg"}
         />
 
         <div className="mx-auto max-w-3xl space-y-6 text-lg leading-8 text-gray-700">
@@ -293,7 +294,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="できること"
-          image="/images/service.jpg"
+          image={services[0]?.imageUrl || "/images/service.jpg"}
         />
 
         <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
@@ -329,7 +330,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="選ばれる理由"
-          image="/images/reason.jpg"
+          image={reasons[0]?.imageUrl || "/images/reason.jpg"}
         />
 
         <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
@@ -376,7 +377,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="レッスン内容"
-          image="/images/lesson.jpg"
+          image={lessons[0]?.imageUrl || "/images/lesson.jpg"}
         />
 
         <div className="mx-auto max-w-4xl space-y-6">
@@ -405,7 +406,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="キャンペーン"
-          image="/images/campaign.jpg"
+          image={campaigns[0]?.imageUrl || "/images/campaign.jpg"}
         />
 
         <div className="mx-auto max-w-3xl space-y-6">
@@ -461,7 +462,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="料金"
-          image="/images/price.jpg"
+          image={prices[0]?.imageUrl || "/images/price.jpg"}
         />
 
         <div className="mx-auto max-w-md space-y-6">
@@ -504,7 +505,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="お客様の声"
-          image="/images/review.jpg"
+          image={reviews[0]?.imageUrl || "/images/review.jpg"}
         />
 
         <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
@@ -558,7 +559,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="店舗住所"
-          image="/images/access.jpg"
+          image={stores[0]?.imageUrl || "/images/access.jpg"}
         />
 
         <div className="mx-auto max-w-4xl space-y-6">
@@ -621,7 +622,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="体験の流れ"
-          image="/images/flow.jpg"
+          image={flow[0]?.imageUrl || "/images/flow.jpg"}
         />
 
         <div className="mx-auto max-w-3xl space-y-4">
@@ -677,7 +678,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="FAQ"
-          image="/images/faq.jpg"
+          image={faqs[0]?.imageUrl || "/images/faq.jpg"}
         />
 
         <div className="mx-auto max-w-4xl space-y-4">
@@ -721,7 +722,7 @@ const aboutData = about ?? {
 
         <ImageBox
           label="最終CTA"
-          image="/images/cta.jpg"
+          image={finalCTAData.imageUrl}
         />
 
         <h2 className="mb-6 text-4xl font-bold">

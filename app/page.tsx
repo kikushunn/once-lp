@@ -506,7 +506,7 @@ const aboutData = about ?? {
                     href={item.ctaUrl || cta.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-8 inline-block w-[90%] max-w-sm whitespace-nowrap rounded-full bg-[#E89A3D] px-6 py-4 text-center font-bold text-white shadow-md md:w-auto md:px-10"
+                    className="gtm-cta-click mt-8 inline-block w-[90%] max-w-sm whitespace-nowrap rounded-full bg-[#E89A3D] px-6 py-4 text-center font-bold text-white shadow-md md:w-auto md:px-10"
                   >
                     {item.ctaText || cta.text}
                   </a>
@@ -666,7 +666,7 @@ const aboutData = about ?? {
                   href={item.lineUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm font-bold text-[#6C8F5D]"
+                  className="gtm-line-click mt-4 inline-block text-sm font-bold text-[#6C8F5D]"
                 >
                   LINEで予約する
                 </a>
@@ -803,7 +803,7 @@ const aboutData = about ?? {
       href={finalCTAData.buttonUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-5 text-base font-bold text-white shadow-md md:px-10 md:text-lg"
+      className="gtm-cta-click inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-5 text-base font-bold text-white shadow-md md:px-10 md:text-lg"
     >
       {finalCTAData.buttonText}
     </a>

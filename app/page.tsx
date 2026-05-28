@@ -148,11 +148,11 @@ const aboutData = about ?? {
   {hero.topText}
 </p>
 
-      <h1 className="mb-6 text-4xl font-bold leading-tight tracking-wide text-gray-800 md:text-6xl whitespace-pre-line">
+      <h1 className="mx-auto mb-6 max-w-3xl whitespace-pre-line text-3xl font-bold leading-snug tracking-wide text-gray-800 md:mx-0 md:text-6xl md:leading-tight">
   {hero.title}
 </h1>
 
-     <p className="mb-8 text-base leading-8 text-gray-600 md:text-lg whitespace-pre-line">
+     <p className="mb-8 whitespace-pre-line text-base leading-relaxed text-gray-600 md:text-lg md:leading-8">
   {hero.subtitle}
 </p>
 <div className="mb-8 flex flex-wrap justify-center gap-3 md:justify-start">
@@ -172,7 +172,7 @@ const aboutData = about ?? {
     href={cta.url}
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-block rounded-full bg-[#E89A3D] px-10 py-4 font-bold text-white shadow-md"
+    className="inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-4 font-bold text-white shadow-md md:px-10"
   >
     {hero.buttonText}
   </a>
@@ -203,11 +203,11 @@ const aboutData = about ?? {
                 ABOUT ONCE
               </p>
 
-              <h2 className="mb-6 text-3xl font-bold text-gray-800 md:text-4xl">
+              <h2 className="mx-auto mb-6 max-w-3xl text-2xl font-bold leading-snug text-gray-800 md:text-4xl">
                 {aboutData.title}
               </h2>
 
-              <p className="whitespace-pre-line leading-8 text-gray-600">
+              <p className="whitespace-pre-line leading-relaxed text-gray-600 md:leading-8">
                 {aboutData.text}
               </p>
             </div>
@@ -230,7 +230,7 @@ const aboutData = about ?? {
       {/* 3 悩み共感 */}
       <section id="worries" className="scroll-mt-24 px-6 py-20">
 
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           こんなお悩みありませんか？
         </h2>
 
@@ -262,7 +262,7 @@ const aboutData = about ?? {
       {/* 4 放置するとどうなるか */}
       <section className="scroll-mt-24 bg-[#f8f5ef] px-6 py-20 text-center">
 
-        <h2 className="mb-8 text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-2xl font-bold leading-snug md:text-3xl">
           そのまま放置すると…
         </h2>
 
@@ -271,7 +271,7 @@ const aboutData = about ?? {
           image={risks[0]?.imageUrl || "/images/risk.jpg"}
         />
 
-        <div className="mx-auto max-w-3xl space-y-6 text-lg leading-8 text-gray-700">
+        <div className="mx-auto max-w-3xl space-y-6 text-base leading-relaxed text-gray-700 md:text-lg md:leading-8">
           {(risks.length > 0
             ? risks.map((risk) => risk.name)
             : [
@@ -289,7 +289,7 @@ const aboutData = about ?? {
       {/* 5 ONCEでできること */}
       <section id="services" className="scroll-mt-24 px-6 py-20">
 
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           ONCEでできること
         </h2>
 
@@ -325,7 +325,7 @@ const aboutData = about ?? {
       {/* 6 選ばれる理由 */}
       <section id="reasons" className="scroll-mt-24 bg-white px-6 py-20">
 
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           選ばれる理由
         </h2>
 
@@ -372,7 +372,7 @@ const aboutData = about ?? {
       {/* 7 レッスン内容 */}
       <section className="scroll-mt-24 px-6 py-20">
 
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           レッスン内容
         </h2>
 
@@ -437,13 +437,13 @@ const aboutData = about ?? {
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#E89A3D] opacity-20" />
               <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-white opacity-50" />
 
-              <div className="relative rounded-[1.5rem] bg-white px-6 py-10 shadow-sm md:px-12 md:py-12">
-                <p className="mx-auto mb-5 inline-block rounded-full bg-[#E89A3D] px-5 py-2 text-sm font-bold tracking-[0.18em] text-white shadow-sm">
+              <div className="relative rounded-[1.5rem] bg-white px-4 py-8 shadow-sm md:px-12 md:py-12">
+                <p className="mx-auto mb-5 inline-block rounded-full bg-[#E89A3D] px-4 py-2 text-xs font-bold tracking-[0.14em] text-white shadow-sm md:px-5 md:text-sm md:tracking-[0.18em]">
                   {item.label}
                 </p>
 
                 <div className="mb-8 space-y-3">
-                  <p className="text-sm font-bold tracking-[0.2em] text-[#6C8F5D]">
+                  <p className="text-sm font-bold leading-relaxed tracking-[0.08em] text-[#6C8F5D] md:tracking-[0.2em]">
                     {item.period}
                   </p>
 
@@ -457,7 +457,7 @@ const aboutData = about ?? {
                     {item.admissionOffer}
                   </p>
 
-                  <h2 className="text-5xl font-bold tracking-wide text-[#E89A3D] md:text-6xl">
+                  <h2 className="text-4xl font-bold leading-tight tracking-wide text-[#E89A3D] md:text-6xl">
                     {item.title}
                   </h2>
                 </div>
@@ -470,12 +470,12 @@ const aboutData = about ?? {
                   {item.discountOffer}
                 </p>
 
-                <div className="mx-auto mb-8 max-w-sm rounded-3xl border border-[#D8EAC7] bg-[#fffdf8] p-6">
+                <div className="mx-auto mb-8 max-w-sm rounded-3xl border border-[#D8EAC7] bg-[#fffdf8] p-5 md:p-6">
                   <p className="mb-4 text-lg font-bold text-gray-800">
                     {item.planName}
                   </p>
 
-                  <div className="flex items-end justify-center gap-4">
+                  <div className="grid grid-cols-1 items-center justify-center gap-4 md:grid-cols-[1fr_auto_1fr] md:items-end">
                     <div>
                       <p className="mb-1 text-xs font-bold text-gray-400">
                         通常
@@ -485,7 +485,7 @@ const aboutData = about ?? {
                       </p>
                     </div>
 
-                    <p className="pb-1 text-2xl font-bold text-[#E89A3D]">
+                    <p className="text-2xl font-bold text-[#E89A3D] md:pb-1">
                       ↓
                     </p>
 
@@ -493,7 +493,7 @@ const aboutData = about ?? {
                       <p className="mb-1 text-xs font-bold text-[#E89A3D]">
                         キャンペーン
                       </p>
-                      <p className="text-4xl font-bold text-[#E89A3D] md:text-5xl">
+                      <p className="text-4xl font-bold leading-tight text-[#E89A3D] md:text-5xl">
                         {item.campaignPrice}
                       </p>
                     </div>
@@ -501,7 +501,7 @@ const aboutData = about ?? {
                 </div>
 
                 {item.text && (
-                  <p className="mx-auto max-w-xl whitespace-pre-line text-base leading-8 text-gray-600">
+                  <p className="mx-auto max-w-xl whitespace-pre-line text-sm leading-relaxed text-gray-600 md:text-base md:leading-8">
                     {item.text}
                   </p>
                 )}
@@ -511,7 +511,7 @@ const aboutData = about ?? {
                     href={item.ctaUrl || cta.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-8 inline-block rounded-full bg-[#E89A3D] px-10 py-4 font-bold text-white shadow-md"
+                    className="mt-8 inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-4 font-bold text-white shadow-md md:px-10"
                   >
                     {item.ctaText || cta.text}
                   </a>
@@ -525,7 +525,7 @@ const aboutData = about ?? {
       {/* 9 料金 */}
       <section id="price" className="scroll-mt-24 bg-[#f8f5ef] px-6 py-20 text-center">
 
-        <h2 className="mb-8 text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-2xl font-bold leading-snug md:text-3xl">
           料金
         </h2>
 
@@ -547,13 +547,13 @@ const aboutData = about ?? {
           ).map((item) => (
             <div
               key={item.planName}
-              className="rounded-3xl bg-white p-10 shadow-md"
+              className="rounded-3xl bg-white p-8 shadow-md md:p-10"
             >
               <p className="mb-3 text-gray-500">
                 {item.planName}
               </p>
 
-              <p className="mb-4 text-5xl font-bold">
+              <p className="mb-4 text-4xl font-bold leading-tight md:text-5xl">
                 {item.price}
               </p>
 
@@ -568,7 +568,7 @@ const aboutData = about ?? {
       {/* 10 お客様の声 */}
       <section className="bg-white px-6 py-20">
 
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           お客様の声
         </h2>
 
@@ -622,7 +622,7 @@ const aboutData = about ?? {
       {/* 11 店舗住所 */}
       <section id="access" className="scroll-mt-24 px-6 py-20">
 
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           店舗アクセス
         </h2>
 
@@ -685,7 +685,7 @@ const aboutData = about ?? {
       {/* 12 体験の流れ */}
       <section className="bg-[#f8f5ef] px-6 py-20">
 
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           体験の流れ
         </h2>
 
@@ -741,7 +741,7 @@ const aboutData = about ?? {
       {/* 13 FAQ */}
       <section id="faq" className="scroll-mt-24 bg-white px-6 py-20">
 
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           よくある質問
         </h2>
 
@@ -794,11 +794,11 @@ const aboutData = about ?? {
           image={finalCTAData.imageUrl}
         />
 
-        <h2 className="mb-6 text-4xl font-bold">
+        <h2 className="mx-auto mb-6 max-w-3xl text-3xl font-bold leading-snug md:text-4xl">
           {finalCTAData.title}
         </h2>
 
-        <p className="mb-10 whitespace-pre-line text-lg leading-8 text-gray-700">
+        <p className="mb-10 whitespace-pre-line text-base leading-relaxed text-gray-700 md:text-lg md:leading-8">
           {finalCTAData.text}
         </p>
 
@@ -808,7 +808,7 @@ const aboutData = about ?? {
       href={finalCTAData.buttonUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-block rounded-full bg-[#E89A3D] px-10 py-5 text-lg font-bold text-white shadow-md"
+      className="inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-5 text-base font-bold text-white shadow-md md:px-10 md:text-lg"
     >
       {finalCTAData.buttonText}
     </a>

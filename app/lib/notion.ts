@@ -144,6 +144,16 @@ function fileUrl(page: NotionPage | undefined, propertyName = "image") {
   return file?.file?.url || file?.external?.url || "";
 }
 
+function propertyText(page: NotionPage, propertyName: string) {
+  const property = page.properties?.[propertyName];
+
+  return (
+    property?.rich_text?.map((text) => text.plain_text).join("") ||
+    property?.title?.map((text) => text.plain_text).join("") ||
+    ""
+  );
+}
+
 const navFallback: NotionNavItem[] = [
   { id: "about", label: "ONCEとは", href: "#about", isHighlighted: false, order: 1 },
   { id: "worries", label: "お悩み", href: "#worries", isHighlighted: false, order: 2 },
@@ -665,37 +675,37 @@ export async function getCampaigns(): Promise<NotionCampaign[]> {
       data.results?.map((page: NotionPage) => ({
         id: page.id,
         label:
-          page?.properties?.["ラベル"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "ラベル") ||
           "今月限定",
         period:
-          page?.properties?.["期間"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "期間") ||
           "7月1日〜7月30日まで",
         limit:
-          page?.properties?.["人数限定"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "人数限定") ||
           "先着30名様限定",
         title:
-          page?.properties?.["タイトル"]?.title?.[0]?.plain_text ||
+          propertyText(page, "タイトル") ||
           "",
         text:
-          page?.properties?.["説明文"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "説明文") ||
           "",
         admissionOffer:
-          page?.properties?.["入会金訴求"]?.rich_text?.[0]?.plain_text ||
-          "入会金＋体験料",
+          propertyText(page, "入会金訴求") ||
+          "入会金＋体験料0円",
         discountOffer:
-          page?.properties?.["永久割引訴求"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "永久割引訴求") ||
           "月会費永久割引",
         planName:
-          page?.properties?.["プラン名"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "プラン名") ||
           "月4回プラン",
         normalPrice:
-          page?.properties?.["通常価格"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "通常価格") ||
           "通常29,700円",
         campaignPrice:
-          page?.properties?.["キャンペーン価格"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "キャンペーン価格") ||
           "28,000円",
         ctaText:
-          page?.properties?.["CTA文言"]?.rich_text?.[0]?.plain_text ||
+          propertyText(page, "CTA文言") ||
           "",
         ctaUrl:
           page?.properties?.["CTAリンク"]?.url ||

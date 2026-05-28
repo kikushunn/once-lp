@@ -415,11 +415,11 @@ const aboutData = about ?? {
             : [
                 {
                   label: "今月限定",
-                  period: "○月〜○月限定",
+                  period: "7月1日〜7月30日まで",
                   limit: "先着30名様限定",
-                  title: "入会金0円",
+                  title: "キャンペーン",
                   text: "まずはお気軽に体験予約ください",
-                  admissionOffer: "入会金＋体験料",
+                  admissionOffer: "入会金＋体験料0円",
                   discountOffer: "月会費永久割引",
                   planName: "月4回プラン",
                   normalPrice: "通常29,700円",
@@ -430,7 +430,7 @@ const aboutData = about ?? {
               ]
           ).map((item) => (
             <div
-              key={item.title}
+              key={item.title || item.admissionOffer}
               className="relative overflow-hidden rounded-[2rem] bg-[#D8EAC7] p-3 shadow-xl md:p-6"
             >
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#E89A3D] opacity-20" />
@@ -452,12 +452,8 @@ const aboutData = about ?? {
                 </div>
 
                 <div className="mb-6 md:mb-8">
-                  <p className="mx-auto mb-2 max-w-xs text-balance text-base font-bold leading-relaxed text-gray-700 md:text-lg">
-                    {item.admissionOffer}
-                  </p>
-
                   <h2 className="mx-auto max-w-xs whitespace-normal break-keep text-balance text-3xl font-bold leading-tight tracking-wide text-[#E89A3D] md:max-w-none md:text-6xl">
-                    {item.title}
+                    {item.admissionOffer}
                   </h2>
                 </div>
 

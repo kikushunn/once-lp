@@ -67,6 +67,14 @@ type NotionReview = {
   imageUrl: string;
 };
 
+type NotionSessionImage = {
+  id: string;
+  title: string;
+  imageUrl: string;
+  order: number;
+  memo: string;
+};
+
 type NotionStore = {
   id: string;
   name: string;
@@ -237,29 +245,19 @@ export async function getHero() {
 
     const data = await response.json();
     const page = data.results?.[0];
+    console.log("HERO PROPERTIES", Object.keys(page?.properties ?? {}));
 
     return {
       title:
-        page?.properties?.["タイトル"]?.rich_text?.[0]?.plain_text ||
+        propertyText(page, "タイトル １") ||
+        propertyText(page, "タイトル") ||
         heroFallback.title,
-      subtitle:
-        page?.properties?.["サブタイトル"]?.rich_text?.[0]?.plain_text ||
-        heroFallback.subtitle,
-      topText:
-        page?.properties?.["キャッチコピー上"]?.rich_text?.[0]?.plain_text ||
-        heroFallback.topText,
-      tag1:
-        page?.properties?.["タグ1"]?.rich_text?.[0]?.plain_text ||
-        heroFallback.tag1,
-      tag2:
-        page?.properties?.["タグ2"]?.rich_text?.[0]?.plain_text ||
-        heroFallback.tag2,
-      tag3:
-        page?.properties?.["タグ3"]?.rich_text?.[0]?.plain_text ||
-        heroFallback.tag3,
-      buttonText:
-        page?.properties?.["ボタン文言"]?.rich_text?.[0]?.plain_text ||
-        heroFallback.buttonText,
+      subtitle: propertyText(page, "サブタイトル") || heroFallback.subtitle,
+      topText: propertyText(page, "キャッチコピー上") || heroFallback.topText,
+      tag1: propertyText(page, "タグ1") || heroFallback.tag1,
+      tag2: propertyText(page, "タグ2") || heroFallback.tag2,
+      tag3: propertyText(page, "タグ3") || heroFallback.tag3,
+      buttonText: propertyText(page, "ボタン文言") || heroFallback.buttonText,
       buttonUrl:
         page?.properties?.["ボタンURL"]?.url || heroFallback.buttonUrl,
       imageUrl: fileUrl(page, "image") || heroFallback.imageUrl,
@@ -482,12 +480,8 @@ export async function getReasons(): Promise<NotionReason[]> {
         limitedCount:
           page?.properties?.["人数限定"]?.rich_text?.[0]?.plain_text ||
           "先着○名様限定",
-        title:
-          page?.properties?.["タイトル"]?.title?.[0]?.plain_text ||
-          "",
-        text:
-          page?.properties?.["説明文"]?.rich_text?.[0]?.plain_text ||
-          "",
+        title: propertyText(page, "タイトル"),
+        text: propertyText(page, "説明文"),
         admissionOffer:
           page?.properties?.["入会金訴求"]?.rich_text?.[0]?.plain_text ||
           "入会金＋体験料",
@@ -774,6 +768,64 @@ export async function getReviews(): Promise<NotionReview[]> {
           page?.properties?.["表示順"]?.number || 0,
         imageUrl: fileUrl(page),
       })) || []
+    );
+  } catch {
+    return [];
+  }
+}
+
+export async function getSessionImages(): Promise<NotionSessionImage[]> {
+  const databaseId = process.env.NOTION_SESSION_IMAGES_DATABASE_ID;
+  const token = process.env.NOTION_TOKEN;
+
+  if (!databaseId || !token) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.notion.com/v1/databases/${databaseId}/query`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Notion-Version": "2022-06-28",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          filter: {
+            property: "表示ON/OFF",
+            checkbox: {
+              equals: true,
+            },
+          },
+          sorts: [
+            {
+              property: "表示順",
+              direction: "ascending",
+            },
+          ],
+        }),
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const data = await response.json();
+
+    return (
+      data.results
+        ?.map((page: NotionPage) => ({
+          id: page.id,
+          title: propertyText(page, "タイトル"),
+          imageUrl: fileUrl(page, "画像") || fileUrl(page),
+          order: page?.properties?.["表示順"]?.number || 0,
+          memo: propertyText(page, "メモ"),
+        }))
+        .filter((item: NotionSessionImage) => item.imageUrl) || []
     );
   } catch {
     return [];

@@ -28,3 +28,18 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes session-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.session-slider-track {
+  width: max-content;
+  animation: session-scroll 42s linear infinite;
+}

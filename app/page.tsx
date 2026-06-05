@@ -1,6 +1,10 @@
 import { existsSync } from "fs";
+import Image from "next/image";
 import { join } from "path";
-import { getAbout, getCTA, getCampaigns, getFaqs, getFinalCTA, getFlow, getHero, getLessons, getNavItems, getPrices, getReasons, getReviews, getRisks, getServices, getStores, getWorries } from "@/app/lib/notion";
+import { getAbout, getCTA, getCampaigns, getFaqs, getFinalCTA, getFlow, getHero, getLessons, getNavItems, getPrices, getReasons, getReviews, getRisks, getServices, getSessionImages, getStores, getWorries } from "@/app/lib/notion";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const localImageExists = (image: string) => {
   if (!image.startsWith("/")) {
@@ -29,10 +33,42 @@ const ImageBox = ({
   );
 };
 
+const reasonTitleKeywords = [
+  "豊富なマシーン",
+  "マンツーマン",
+  "通いやすい価格",
+  "手ぶら",
+  "キッズサークル",
+];
+
+const highlightReasonTitle = (title: string) => {
+  const pattern = new RegExp(`(${reasonTitleKeywords.join("|")})`, "g");
+
+  return title.split(pattern).map((part, index) =>
+    reasonTitleKeywords.includes(part) ? (
+      <span key={`${part}-${index}`} className="text-[#E89A3D]">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+};
+
 export default async function Home() {
 
 const cta = await getCTA();
 const hero = await getHero();
+console.log("HERO DATA", hero);
+const heroTitle = hero.title
+  .replace(
+    "週1〜始める。キレイとしなやかを作る習慣。",
+    "週1〜始める。\nキレイとしなやか\nを作る習慣。"
+  )
+  .replace(
+    "週１〜始める。キレイとしなやかを作る習慣。",
+    "週１〜始める。\nキレイとしなやか\nを作る習慣。"
+  );
 const about = await getAbout();
 const navItems = await getNavItems();
 const worries = await getWorries();
@@ -43,6 +79,7 @@ const lessons = await getLessons();
 const prices = await getPrices();
 const campaigns = await getCampaigns();
 const reviews = await getReviews();
+const sessionImages = await getSessionImages();
 const stores = await getStores();
 const flow = await getFlow();
 const faqs = await getFaqs();
@@ -139,16 +176,16 @@ const aboutData = about ?? {
 
       {/* 1 Hero */}
 <section className="relative overflow-hidden bg-[#fffdf8] px-6 py-20 md:py-28">
-  <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
+  <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
 
     {/* 左側テキスト */}
-    <div className="text-center md:text-left">
+    <div className="w-full min-w-0 text-center md:max-w-[680px] md:text-left">
       <p className="mb-5 text-sm font-bold tracking-[0.3em] text-[#E89A3D]">
   {hero.topText}
 </p>
 
-      <h1 className="mx-auto mb-6 max-w-3xl whitespace-pre-line text-3xl font-bold leading-snug tracking-wide text-gray-800 md:mx-0 md:text-6xl md:leading-tight">
-  {hero.title}
+      <h1 className="mx-auto mb-6 max-w-full break-words whitespace-pre-line text-balance text-[42px] font-bold leading-[1.18] tracking-normal text-gray-800 [overflow-wrap:anywhere] md:mx-0 md:max-w-[640px] md:text-[clamp(2.8rem,4.2vw,4.8rem)] md:leading-[1.12] md:tracking-[-0.04em]">
+  {heroTitle}
 </h1>
 
      <p className="mb-8 whitespace-pre-line text-base leading-relaxed text-gray-600 md:text-lg md:leading-8">
@@ -179,7 +216,7 @@ const aboutData = about ?? {
     </div>
 
     {/* 右側画像 */}
-    <div className="relative">
+    <div className="relative w-full min-w-0 overflow-hidden">
       <div className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-[#D8EAC7] opacity-70" />
       <div className="absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-[#F6C58A] opacity-70" />
 
@@ -191,6 +228,77 @@ const aboutData = about ?? {
 
   </div>
 </section>
+
+      {/* GRAND OPEN campaign */}
+      <section className="bg-[#FFFDF8] px-6 pb-16">
+        <div className="mx-auto max-w-6xl rounded-[32px] border border-[#DDE8CC] bg-white p-6 text-[#17233B] shadow-[0_24px_70px_rgba(23,35,59,0.10)] md:p-10">
+          <div className="grid gap-8 md:grid-cols-[1fr_1fr] md:items-center">
+            <div className="relative overflow-hidden rounded-[28px] bg-[#FFFDF8] p-6 md:p-8">
+              <div className="absolute right-6 top-6 h-16 w-16 rounded-full bg-[#DDE8CC]" />
+              <div className="absolute -bottom-8 -left-8 h-28 w-28 rounded-full bg-[#E89B3A]/15" />
+
+              <p className="relative mb-4 text-sm font-bold tracking-[0.28em] text-[#C9A45C]">
+                GRAND OPEN
+              </p>
+
+              <h2 className="relative mb-5 text-3xl font-bold leading-tight text-[#C9A45C] md:text-5xl">
+                7月4日
+                <br />
+                GRAND OPEN！
+              </h2>
+
+              <p className="relative mb-4 text-xl font-bold leading-relaxed md:text-2xl">
+                スタジオONCE
+                <br />
+                江戸川橋・護国寺店
+              </p>
+
+              <p className="relative rounded-2xl bg-white/80 px-4 py-3 text-sm leading-relaxed text-[#4A5568] shadow-sm md:text-base">
+                ※近隣の江戸川橋・神楽坂店と相互利用可能です✨
+              </p>
+            </div>
+
+            <div className="rounded-[28px] bg-[#DDE8CC]/45 p-6 text-center md:p-8">
+              <p className="mx-auto mb-5 inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold text-[#17233B] shadow-sm">
+                <span>7月30日まで先着</span>
+                <span className="!text-[#E89B3A]">30名様</span>
+                <span>限定</span>
+              </p>
+
+              <div className="mb-6 rounded-[24px] border border-[#C9A45C]/20 bg-white p-6 shadow-sm">
+                <p className="mb-2 text-sm font-bold tracking-[0.18em] text-[#E89B3A]">
+                  月4回
+                </p>
+
+                <p className="text-5xl font-extrabold leading-none tracking-tight text-[#17233B] md:text-6xl">
+                  28,000円
+                </p>
+
+                <p className="mx-auto mt-4 inline-flex rounded-full bg-[#E89B3A] px-4 py-2 text-sm font-bold text-white">
+                  ✨永久割引✨
+                </p>
+              </div>
+
+              <p className="mb-6 text-base font-bold leading-relaxed md:text-lg">
+                予約開始まで
+                <br />
+                公式LINEを追加してお待ちください！
+              </p>
+
+              {cta.isVisible && (
+                <a
+                  href={cta.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="gtm-cta-click inline-flex w-full items-center justify-center whitespace-nowrap rounded-full bg-[#E89B3A] px-6 py-4 text-base font-bold text-white shadow-md transition hover:opacity-90 md:w-auto md:px-10"
+                >
+                  公式LINEを追加する
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 2 スタジオONCEとは */}
       {aboutData.isVisible && (
@@ -270,17 +378,28 @@ const aboutData = about ?? {
           image={risks[0]?.imageUrl || "/images/risk.jpg"}
         />
 
-        <div className="mx-auto max-w-3xl space-y-6 text-base leading-relaxed text-gray-700 md:text-lg md:leading-8">
+        <div className="mx-auto grid max-w-5xl gap-4 text-left md:grid-cols-2 md:gap-5">
           {(risks.length > 0
             ? risks.map((risk) => risk.name)
             : [
-                "肩こり・腰痛が慢性化する",
-                "姿勢が崩れ疲れやすくなる",
-                "代謝が落ち痩せづらくなる",
-                "身体を動かすのがさらに億劫になる",
+                "肩こり・腰痛が慢性化",
+                "反り腰、猫背で体型が崩れる",
+                "姿勢が崩れ実際より太って見える",
+                "身体を動かすのが億劫になる",
               ]
           ).map((item) => (
-            <p key={item}>{item}</p>
+            <div
+              key={item}
+              className="flex gap-4 rounded-[24px] bg-white p-6 text-[#17233B] shadow-[0_16px_40px_rgba(23,35,59,0.08)]"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E89B3A]/10 text-lg text-[#E89B3A]">
+                ⚠
+              </span>
+
+              <p className="pt-1 text-base font-bold leading-relaxed md:text-lg">
+                {item}
+              </p>
+            </div>
           ))}
         </div>
       </section>
@@ -297,7 +416,7 @@ const aboutData = about ?? {
           image={services[0]?.imageUrl || "/images/service.jpg"}
         />
 
-        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl gap-3 sm:grid-cols-2 md:grid-cols-3">
           {(services.length > 0
             ? services.map((service) => service.name)
             : [
@@ -308,12 +427,16 @@ const aboutData = about ?? {
                 "ボディメイク",
                 "運動習慣づくり",
               ]
-          ).map((item) => (
+          ).map((item, index) => (
             <div
               key={item}
-              className="rounded-3xl bg-white p-8 text-center shadow-sm"
+              className="group rounded-[24px] border border-[#D8EAC7] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
-              <p className="text-xl font-bold">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#D8EAC7]/70 text-sm font-bold text-[#17233B]">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+
+              <p className="text-base font-bold leading-snug text-[#17233B] md:text-lg">
                 {item}
               </p>
             </div>
@@ -333,7 +456,7 @@ const aboutData = about ?? {
           image={reasons[0]?.imageUrl || "/images/reason.jpg"}
         />
 
-        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl items-stretch gap-5 md:grid-cols-2 md:gap-7">
 
           {(reasons.length > 0
             ? reasons
@@ -351,18 +474,30 @@ const aboutData = about ?? {
                   text: "初心者でも安心して通える",
                 },
               ]
-          ).map((item) => (
+          ).map((item, index) => (
             <div
-              key={item.title}
-              className="rounded-3xl bg-[#fffdf8] p-8 shadow-sm"
+              key={`${item.title}-${index}`}
+              className="flex h-full flex-col rounded-[2rem] border border-[#D8EAC7]/70 bg-[#fffdf8] p-6 shadow-[0_18px_45px_rgba(108,143,93,0.12)] md:p-8"
             >
-              <h3 className="mb-4 text-2xl font-bold">
-                {item.title}
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <span className="rounded-full bg-[#D8EAC7] px-3 py-1 text-xs font-bold tracking-[0.16em] text-[#6C8F5D]">
+                  REASON {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D8EAC7]/70">
+                  <span className="h-3 w-3 rounded-full bg-[#E89A3D]" />
+                </span>
+              </div>
+
+              <h3 className="mb-4 text-[22px] font-bold leading-snug text-gray-800 md:text-2xl">
+                {highlightReasonTitle(item.title)}
               </h3>
 
-              <p className="leading-8 text-gray-600">
+              <p className="whitespace-pre-line text-base leading-relaxed text-gray-600 md:leading-8">
                 {item.text}
               </p>
+
+              <div className="mt-6 h-1 w-20 rounded-full bg-[#D8EAC7]" />
             </div>
           ))}
         </div>
@@ -380,22 +515,35 @@ const aboutData = about ?? {
           image={lessons[0]?.imageUrl || "/images/lesson.jpg"}
         />
 
-        <div className="mx-auto max-w-4xl space-y-6">
+        <div className="mx-auto max-w-3xl">
           {(lessons.length > 0
             ? lessons.map((lesson) => lesson.name)
             : [
                 "姿勢分析",
                 "身体評価",
-                "マシンピラティス",
-                "ストレッチ",
-                "セルフケア指導",
+                "オーダーメイドマシンピラティス",
               ]
-          ).map((item) => (
+          ).map((item, index) => (
             <div
               key={item}
-              className="rounded-3xl bg-white p-6 shadow-sm"
+              className="relative grid gap-4 pb-8 pl-14 last:pb-0"
             >
-              {item}
+              {index < (lessons.length > 0 ? lessons.length : 3) - 1 && (
+                <div className="absolute left-5 top-11 h-full w-px bg-[#D8EAC7]" />
+              )}
+              <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full border border-[#D8EAC7] bg-white text-sm font-bold text-[#E89A3D] shadow-sm">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+
+              <div className="rounded-[24px] border border-[#D8EAC7] bg-white p-6 shadow-sm">
+                <p className="mb-2 text-xs font-bold tracking-[0.2em] text-[#6C8F5D]">
+                  STEP{String(index + 1).padStart(2, "0")}
+                </p>
+
+                <p className="text-xl font-bold leading-snug text-[#17233B]">
+                  {item}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -529,39 +677,103 @@ const aboutData = about ?? {
           image={prices[0]?.imageUrl || "/images/price.jpg"}
         />
 
-        <div className="mx-auto max-w-md space-y-6">
+        <div className="mx-auto grid max-w-5xl items-center gap-5 md:grid-cols-3">
           {(prices.length > 0
             ? prices
             : [
+                {
+                  planName: "月2回プラン",
+                  price: "15,000円",
+                  description: "まずは無理なく始めたい方へ",
+                },
                 {
                   planName: "月4回プラン",
                   price: "28,000円",
                   description: "1回あたり7,000円",
                 },
+                {
+                  planName: "月8回プラン",
+                  price: "52,000円",
+                  description: "しっかり身体を整えたい方へ",
+                },
               ]
-          ).map((item) => (
+          ).map((item) => {
+            const isPopular = item.planName.includes("月4");
+
+            return (
             <div
               key={item.planName}
-              className="rounded-3xl bg-white p-8 shadow-md md:p-10"
+              className={
+                isPopular
+                  ? "relative order-first rounded-[28px] border border-[#E89A3D]/40 bg-white p-8 shadow-[0_24px_60px_rgba(23,35,59,0.12)] md:order-none md:scale-105 md:p-10"
+                  : "rounded-[28px] border border-[#D8EAC7] bg-white/80 p-7 shadow-sm md:p-8"
+              }
             >
-              <p className="mb-3 text-gray-500">
+              {isPopular && (
+                <p className="mx-auto mb-4 inline-flex rounded-full bg-[#E89A3D] px-4 py-2 text-xs font-bold tracking-[0.14em] text-white">
+                  人気No.1
+                </p>
+              )}
+
+              <p className="mb-3 font-bold text-[#17233B]">
                 {item.planName}
               </p>
 
-              <p className="mb-4 text-4xl font-bold leading-tight md:text-5xl">
+              <p
+                className={
+                  isPopular
+                    ? "mb-4 text-5xl font-extrabold leading-tight text-[#17233B] md:text-6xl"
+                    : "mb-4 text-3xl font-bold leading-tight text-[#17233B]"
+                }
+              >
                 {item.price}
               </p>
 
-              <p className="text-gray-600">
+              <p className="text-sm leading-relaxed text-gray-600 md:text-base">
                 {item.description}
               </p>
             </div>
-          ))}
+          );
+          })}
         </div>
       </section>
 
       {/* 10 お客様の声 */}
       <section className="bg-white px-6 py-20">
+        {sessionImages.length > 0 && (
+          <div className="mx-auto mb-14 max-w-6xl overflow-hidden">
+            <div className="mb-8 text-center">
+              <p className="mb-3 text-xs font-bold tracking-[0.35em] text-[#E89A3D]">
+                STUDIO ONCE
+              </p>
+
+              <h2 className="text-2xl font-bold leading-snug text-gray-800 md:text-3xl">
+                初めての方でも安心。
+                <br />
+                マンツーマンレッスンの様子
+              </h2>
+            </div>
+
+            <div className="relative -mx-6 overflow-hidden py-2">
+              <div className="session-slider-track flex gap-5 px-6 md:gap-6">
+                {[...sessionImages, ...sessionImages].map(
+                  (item, index) => (
+                    <Image
+                      key={`${item.id}-${index}`}
+                      src={item.imageUrl}
+                      alt={item.title || "セッション風景"}
+                      width={360}
+                      height={288}
+                      sizes="(min-width: 768px) 360px, 260px"
+                      unoptimized
+                      className="h-64 w-[260px] shrink-0 rounded-[28px] object-cover shadow-md md:h-72 md:w-[360px]"
+                    />
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         <h2 className="mx-auto mb-8 max-w-3xl text-center text-2xl font-bold leading-snug md:text-3xl">
           お客様の声
@@ -572,7 +784,7 @@ const aboutData = about ?? {
           image={reviews[0]?.imageUrl || "/images/review.jpg"}
         />
 
-        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+        <div className="-mx-6 flex snap-x gap-4 overflow-x-auto px-6 pb-4 md:mx-auto md:grid md:max-w-5xl md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
 
           {(reviews.length > 0
             ? reviews
@@ -593,22 +805,26 @@ const aboutData = about ?? {
                   age: "",
                 },
               ]
-          ).map((item) => (
+          ).map((item, index) => (
             <div
-              key={item.comment}
-              className="rounded-3xl bg-[#fffdf8] p-8 shadow-sm"
+              key={`${item.comment}-${index}`}
+              className="flex h-72 w-[280px] shrink-0 snap-center flex-col rounded-[28px] border border-[#D8EAC7] bg-[#fffdf8] p-6 shadow-sm md:w-auto"
             >
-              <p className="leading-8 text-gray-700">
-                “{item.comment}”
+              <p className="mb-4 tracking-[0.12em] text-[#E89A3D]">
+                ★★★★★
               </p>
 
               {(item.name || item.age) && (
-                <p className="mt-4 text-sm text-gray-500">
+                <p className="mb-4 text-sm font-bold text-[#17233B]">
                   {item.name}
                   {item.name && item.age ? " / " : ""}
                   {item.age}
                 </p>
               )}
+
+              <p className="line-clamp-5 leading-8 text-gray-700">
+                “{item.comment}”
+              </p>
             </div>
           ))}
         </div>
@@ -713,7 +929,7 @@ const aboutData = about ?? {
               ]
           ).map((item, index) => (
             <div
-              key={item.title}
+              key={`${item.title}-${index}`}
               className="rounded-3xl bg-white p-6 shadow-sm"
             >
               <span className="mr-3 font-bold text-[#6C8F5D]">

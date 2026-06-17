@@ -340,9 +340,7 @@ const aboutPointIcons = [Lock, User, Leaf];
               </div>
 
               <p className="mb-6 text-base font-bold leading-relaxed md:text-lg">
-                予約開始まで
-                <br />
-                公式LINEを追加してお待ちください！
+                6月20日〜先行予約スタート！
               </p>
 
               {cta.isVisible && (

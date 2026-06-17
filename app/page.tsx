@@ -1,4 +1,5 @@
 import { existsSync } from "fs";
+import { Leaf, Lock, User } from "lucide-react";
 import Image from "next/image";
 import { join } from "path";
 import { getAbout, getCTA, getCampaigns, getFaqs, getFinalCTA, getFlow, getHero, getLessons, getNavItems, getPrices, getReasons, getReviews, getRisks, getServices, getSessionImages, getStores, getWorries } from "@/app/lib/notion";
@@ -78,6 +79,22 @@ const reasons = await getReasons();
 const lessons = await getLessons();
 const prices = await getPrices();
 const campaigns = await getCampaigns();
+const heroCampaign = campaigns[0] ?? {
+  title: "GRAND OPENキャンペーン",
+  description: "",
+  label: "今月限定",
+  period: "7月30日まで",
+  limitedText: "30名様限定",
+  joiningOffer: "入会金＋体験料0円",
+  discountText: "月会費永久割引",
+  normalPrice: "通常29,700円",
+  campaignPrice: "28,000円",
+  planName: "月4回",
+  reservationText: "6月20日〜 先行予約開始",
+  ctaText: hero.buttonText,
+  ctaUrl: hero.buttonUrl,
+  imageUrl: "",
+};
 const reviews = await getReviews();
 const sessionImages = await getSessionImages();
 const stores = await getStores();
@@ -101,12 +118,14 @@ const aboutData = about ?? {
     "初心者でも安心",
   ],
   isVisible: true,
+  imageUrl: "",
 };
+const aboutPointIcons = [Lock, User, Leaf];
     
   return (
-    <main className="bg-[#fffdf8] text-gray-900">
+    <main className="bg-[#fffdf8] text-[#545454]">
       <nav className="sticky top-0 z-50 border-b border-[#D8EAC7] bg-[#fffdf8]/95 px-4 py-2 backdrop-blur md:py-3">
-        <div className="mx-auto hidden max-w-6xl items-center gap-2 overflow-x-auto whitespace-nowrap text-sm font-bold text-gray-700 md:flex">
+        <div className="mx-auto hidden max-w-6xl items-center gap-2 overflow-x-auto whitespace-nowrap text-sm font-bold text-[#545454] md:flex">
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -133,9 +152,9 @@ const aboutData = about ?? {
           <div className="flex items-center justify-between">
             <a
               href="#about"
-              className="text-sm font-bold tracking-[0.18em] text-[#E89A3D]"
+              className="text-xs font-bold leading-tight text-[#E89A3D]"
             >
-              ONCE
+              {hero.storeName}
             </a>
 
             <label
@@ -162,7 +181,7 @@ const aboutData = about ?? {
                     className={
                       item.isHighlighted
                         ? "block rounded-full bg-[#E89A3D] px-4 py-3 text-center text-sm font-bold text-white shadow-sm"
-                        : "block rounded-full px-4 py-3 text-sm font-bold text-gray-700 hover:bg-[#D8EAC7]"
+                        : "block rounded-full px-4 py-3 text-sm font-bold text-[#545454] hover:bg-[#D8EAC7]"
                     }
                   >
                     {item.label}
@@ -175,48 +194,88 @@ const aboutData = about ?? {
       </nav>
 
       {/* 1 Hero */}
-<section className="relative overflow-hidden bg-[#fffdf8] px-6 py-20 md:py-28">
-  <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+<section className="relative overflow-hidden bg-[#fffdf8] px-6 py-10 md:py-20">
+  <div className="mx-auto max-w-6xl">
+    <div className="mx-auto mb-8 max-w-md overflow-hidden rounded-[28px] border border-[#D8EAC7] bg-white text-center shadow-[0_16px_45px_rgba(23,35,59,0.08)] md:mb-12 md:max-w-2xl">
+      <p className="bg-[#E89A3D] px-4 py-2 text-sm font-bold tracking-[0.18em] text-white">
+        {hero.openDate}
+      </p>
+
+      <div className="bg-[#fffdf8] px-5 py-6 md:px-8 md:py-8">
+        <div className="flex flex-nowrap items-baseline justify-center gap-1 whitespace-nowrap text-center font-bold leading-none">
+          <span className="text-[22px] text-[#545454] md:text-[34px]">先着</span>
+          <span className="text-[52px] text-[#E89A3D] md:text-[72px]">30名様</span>
+          <span className="text-[22px] text-[#545454] md:text-[34px]">限定</span>
+        </div>
+
+        <p className="mx-auto mt-4 inline-flex rounded-full bg-[#D8EAC7] px-5 py-2 text-lg font-bold text-[#545454] md:text-xl">
+          {heroCampaign.discountText}
+        </p>
+
+        <div className="mt-4 flex flex-col items-center justify-center gap-2">
+          <span className="text-sm font-bold text-[#545454]/60 line-through">
+            {heroCampaign.normalPrice}
+          </span>
+          <div className="flex items-end justify-center gap-2">
+            <span className="mb-1 rounded-full border border-[#E89A3D]/30 bg-white px-3 py-1 text-xs font-bold text-[#545454] shadow-sm md:text-sm">
+              {heroCampaign.planName}
+            </span>
+            <span className="text-3xl font-extrabold leading-none text-[#E89A3D] md:text-4xl">
+              {heroCampaign.campaignPrice}
+            </span>
+          </div>
+        </div>
+
+        <p className="mt-4 text-sm font-bold leading-relaxed text-[#E89A3D] md:text-base">
+          {hero.campaignStartText || heroCampaign.reservationText}
+        </p>
+      </div>
+    </div>
+
+    <div className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
 
     {/* 左側テキスト */}
-    <div className="w-full min-w-0 text-center md:max-w-[680px] md:text-left">
-      <p className="mb-5 text-sm font-bold tracking-[0.3em] text-[#E89A3D]">
-  {hero.topText}
-</p>
+    <div className="order-2 w-full min-w-0 text-center md:order-1 md:max-w-[680px] md:text-left">
+      {hero.topCopy && (
+        <p className="mb-4 text-sm font-bold tracking-[0.2em] text-[#E89A3D]">
+          {hero.topCopy}
+        </p>
+      )}
 
-      <h1 className="mx-auto mb-6 max-w-full break-words whitespace-pre-line text-balance text-[42px] font-bold leading-[1.18] tracking-normal text-gray-800 [overflow-wrap:anywhere] md:mx-0 md:max-w-[640px] md:text-[clamp(2.8rem,4.2vw,4.8rem)] md:leading-[1.12] md:tracking-[-0.04em]">
+      <h1 className="mx-auto mb-6 max-w-full break-words whitespace-pre-line text-balance text-[42px] font-bold leading-[1.18] tracking-normal text-[#545454] [overflow-wrap:anywhere] md:mx-0 md:max-w-[640px] md:text-[clamp(2.8rem,4.2vw,4.8rem)] md:leading-[1.12] md:tracking-[-0.04em]">
   {heroTitle}
 </h1>
 
-     <p className="mb-8 whitespace-pre-line text-base leading-relaxed text-gray-600 md:text-lg md:leading-8">
-  {hero.subtitle}
-</p>
-<div className="mb-8 flex flex-wrap justify-center gap-3 md:justify-start">
-      <span className="rounded-full bg-[#D8EAC7] px-4 py-2 text-sm font-bold text-gray-700">
-  {hero.tag1}
-</span>
-        <span className="rounded-full bg-[#D8EAC7] px-4 py-2 text-sm font-bold text-gray-700">
-          {hero.tag2}
-        </span>
-        <span className="rounded-full bg-[#D8EAC7] px-4 py-2 text-sm font-bold text-gray-700">
-          {hero.tag3}
-        </span>
+<div className="mx-auto mb-8 grid max-w-sm grid-cols-3 gap-3 md:mx-0 md:max-w-md md:gap-4">
+      {[hero.tag1, hero.tag2, hero.tag3].map((item) => (
+        <div
+          key={item}
+          className="flex aspect-square items-center justify-center rounded-full bg-[#D8EAC7] p-3 text-center text-[12px] font-bold leading-snug text-[#545454] shadow-sm md:text-sm"
+        >
+          {item}
+        </div>
+      ))}
       </div>
 
-      {cta.isVisible && (
-  <a
-    href={cta.url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-4 font-bold text-white shadow-md md:px-10"
-  >
-    {hero.buttonText}
-  </a>
+      {hero.isVisible && (
+  <div>
+    <p className="mb-3 text-sm font-bold text-[#E89A3D]">
+      ＼{heroCampaign.reservationText}／
+    </p>
+    <a
+      href={heroCampaign.ctaUrl || hero.buttonUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-4 font-bold text-white shadow-md md:px-10"
+    >
+      {heroCampaign.ctaText || hero.buttonText}
+    </a>
+  </div>
 )}
     </div>
 
     {/* 右側画像 */}
-    <div className="relative w-full min-w-0 overflow-hidden">
+    <div className="relative order-1 w-full min-w-0 overflow-hidden md:order-2">
       <div className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-[#D8EAC7] opacity-70" />
       <div className="absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-[#F6C58A] opacity-70" />
 
@@ -227,11 +286,12 @@ const aboutData = about ?? {
     </div>
 
   </div>
+  </div>
 </section>
 
       {/* GRAND OPEN campaign */}
       <section className="bg-[#FFFDF8] px-6 pb-16">
-        <div className="mx-auto max-w-6xl rounded-[32px] border border-[#DDE8CC] bg-white p-6 text-[#17233B] shadow-[0_24px_70px_rgba(23,35,59,0.10)] md:p-10">
+        <div className="mx-auto max-w-6xl rounded-[32px] border border-[#DDE8CC] bg-white p-6 text-[#545454] shadow-[0_24px_70px_rgba(23,35,59,0.10)] md:p-10">
           <div className="grid gap-8 md:grid-cols-[1fr_1fr] md:items-center">
             <div className="relative overflow-hidden rounded-[28px] bg-[#FFFDF8] p-6 md:p-8">
               <div className="absolute right-6 top-6 h-16 w-16 rounded-full bg-[#DDE8CC]" />
@@ -253,13 +313,13 @@ const aboutData = about ?? {
                 江戸川橋・護国寺店
               </p>
 
-              <p className="relative rounded-2xl bg-white/80 px-4 py-3 text-sm leading-relaxed text-[#4A5568] shadow-sm md:text-base">
+              <p className="relative rounded-2xl bg-white/80 px-4 py-3 text-sm leading-relaxed text-[#545454] shadow-sm md:text-base">
                 ※近隣の江戸川橋・神楽坂店と相互利用可能です✨
               </p>
             </div>
 
             <div className="rounded-[28px] bg-[#DDE8CC]/45 p-6 text-center md:p-8">
-              <p className="mx-auto mb-5 inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold text-[#17233B] shadow-sm">
+              <p className="mx-auto mb-5 inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold text-[#545454] shadow-sm">
                 <span>7月30日まで先着</span>
                 <span className="!text-[#E89B3A]">30名様</span>
                 <span>限定</span>
@@ -270,7 +330,7 @@ const aboutData = about ?? {
                   月4回
                 </p>
 
-                <p className="text-5xl font-extrabold leading-none tracking-tight text-[#17233B] md:text-6xl">
+                <p className="text-5xl font-extrabold leading-none tracking-tight text-[#545454] md:text-6xl">
                   28,000円
                 </p>
 
@@ -300,6 +360,20 @@ const aboutData = about ?? {
         </div>
       </section>
 
+      {aboutData.imageUrl && (
+        <section className="bg-[#FFFDF8] px-6 py-[60px]">
+          <div className="mx-auto max-w-6xl">
+            <Image
+              src={aboutData.imageUrl}
+              alt="スタジオONCE"
+              width={1200}
+              height={640}
+              className="h-[250px] w-full rounded-[24px] object-cover shadow-md md:h-[350px]"
+            />
+          </div>
+        </section>
+      )}
+
       {/* 2 スタジオONCEとは */}
       {aboutData.isVisible && (
       <section id="about" className="scroll-mt-24 bg-[#f3f8ed] px-6 py-20">
@@ -310,24 +384,31 @@ const aboutData = about ?? {
                 ABOUT ONCE
               </p>
 
-              <h2 className="mx-auto mb-6 max-w-3xl text-2xl font-bold leading-snug text-gray-800 md:text-4xl">
+              <h2 className="mx-auto mb-6 max-w-3xl text-2xl font-bold leading-snug text-[#545454] md:text-4xl">
                 {aboutData.title}
               </h2>
 
-              <p className="whitespace-pre-line leading-relaxed text-gray-600 md:leading-8">
+              <p className="whitespace-pre-line leading-relaxed text-[#545454] md:leading-8">
                 {aboutData.text}
               </p>
             </div>
 
-            <div className="grid gap-3">
-              {aboutData.points.map((item) => (
+            <div className="grid grid-cols-3 justify-items-center gap-3 md:gap-4">
+              {aboutData.points.map((item, index) => {
+                const Icon = aboutPointIcons[index] ?? Leaf;
+
+                return (
                 <div
                   key={item}
-                  className="rounded-2xl bg-[#D8EAC7] px-5 py-4 text-center font-bold text-gray-700 shadow-sm"
+                  className="flex aspect-square w-[110px] flex-col items-center justify-center rounded-full bg-[#D8EAC7] p-4 text-center font-bold text-[#545454] shadow-md md:w-[126px]"
                 >
-                  {item}
+                  <Icon className="mb-2 h-6 w-6 text-[#545454] md:h-7 md:w-7" strokeWidth={1.8} />
+                  <span className="text-xs leading-snug md:text-sm">
+                    {item}
+                  </span>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -390,7 +471,7 @@ const aboutData = about ?? {
           ).map((item) => (
             <div
               key={item}
-              className="flex gap-4 rounded-[24px] bg-white p-6 text-[#17233B] shadow-[0_16px_40px_rgba(23,35,59,0.08)]"
+              className="flex gap-4 rounded-[24px] bg-white p-6 text-[#545454] shadow-[0_16px_40px_rgba(23,35,59,0.08)]"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E89B3A]/10 text-lg text-[#E89B3A]">
                 ⚠
@@ -432,11 +513,11 @@ const aboutData = about ?? {
               key={item}
               className="group rounded-[24px] border border-[#D8EAC7] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#D8EAC7]/70 text-sm font-bold text-[#17233B]">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#D8EAC7]/70 text-sm font-bold text-[#545454]">
                 {String(index + 1).padStart(2, "0")}
               </div>
 
-              <p className="text-base font-bold leading-snug text-[#17233B] md:text-lg">
+              <p className="text-base font-bold leading-snug text-[#545454] md:text-lg">
                 {item}
               </p>
             </div>
@@ -489,11 +570,11 @@ const aboutData = about ?? {
                 </span>
               </div>
 
-              <h3 className="mb-4 text-[22px] font-bold leading-snug text-gray-800 md:text-2xl">
+              <h3 className="mb-4 text-[22px] font-bold leading-snug text-[#545454] md:text-2xl">
                 {highlightReasonTitle(item.title)}
               </h3>
 
-              <p className="whitespace-pre-line text-base leading-relaxed text-gray-600 md:leading-8">
+              <p className="whitespace-pre-line text-base leading-relaxed text-[#545454] md:leading-8">
                 {item.text}
               </p>
 
@@ -540,7 +621,7 @@ const aboutData = about ?? {
                   STEP{String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="text-xl font-bold leading-snug text-[#17233B]">
+                <p className="text-xl font-bold leading-snug text-[#545454]">
                   {item}
                 </p>
               </div>
@@ -590,13 +671,21 @@ const aboutData = about ?? {
                 </p>
 
                 <div className="mb-6 space-y-3 md:mb-8">
-                  <p className="text-sm font-bold leading-relaxed tracking-[0.08em] text-[#6C8F5D] md:tracking-[0.2em]">
-                    {item.period}
-                  </p>
+                  {item.period && (
+                    <p className="text-sm font-bold leading-relaxed tracking-[0.08em] text-[#6C8F5D] md:tracking-[0.2em]">
+                      {item.period}
+                    </p>
+                  )}
 
-                  <p className="inline-block rounded-full bg-[#f8f5ef] px-4 py-2 text-sm font-bold text-gray-700">
-                    {item.limit}
-                  </p>
+                  <div className="mx-auto inline-flex rounded-[28px] bg-[#f8f5ef] px-8 py-5 shadow-sm">
+                    <div className="limited-wrapper flex flex-col items-center gap-0 text-center font-bold leading-[0.92]">
+                      <span className="block text-4xl text-[#545454]">先着</span>
+                      <span className="highlight block text-7xl font-bold text-[#E89A3D]">
+                        30名様
+                      </span>
+                      <span className="block text-4xl text-[#545454]">限定</span>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="mb-6 md:mb-8">
@@ -605,25 +694,25 @@ const aboutData = about ?? {
                   </h2>
                 </div>
 
-                <p className="mb-5 text-base font-bold text-gray-500">
+                <p className="mb-5 text-base font-bold text-[#545454]">
                   さらに
                 </p>
 
-                <p className="mx-auto mb-6 inline-block rounded-full bg-[#D8EAC7] px-5 py-2 text-sm font-bold text-gray-800 shadow-sm md:mb-8">
+                <p className="mx-auto mb-6 inline-block rounded-full bg-[#D8EAC7] px-5 py-2 text-sm font-bold text-[#545454] shadow-sm md:mb-8">
                   {item.discountOffer}
                 </p>
 
                 <div className="mx-auto mb-6 max-w-sm rounded-3xl border border-[#D8EAC7] bg-[#fffdf8] p-4 md:mb-8 md:p-6">
-                  <p className="mb-4 text-base font-bold text-gray-800 md:text-lg">
+                  <p className="mb-4 text-base font-bold text-[#545454] md:text-lg">
                     {item.planName}
                   </p>
 
                   <div className="grid grid-cols-1 items-stretch justify-center gap-3 md:grid-cols-[1fr_auto_1fr] md:items-end md:gap-4">
                     <div className="rounded-2xl bg-white px-4 py-3 shadow-sm md:bg-transparent md:px-0 md:py-0 md:shadow-none">
-                      <p className="mb-1 text-sm font-bold text-gray-500 md:text-xs md:text-gray-400">
+                      <p className="mb-1 text-sm font-bold text-[#545454] md:text-xs md:text-[#545454]">
                         通常
                       </p>
-                      <p className="text-xl font-bold text-gray-400 line-through">
+                      <p className="text-xl font-bold text-[#545454] line-through">
                         {item.normalPrice}
                       </p>
                     </div>
@@ -644,7 +733,7 @@ const aboutData = about ?? {
                 </div>
 
                 {item.text && (
-                  <p className="mx-auto max-w-xl whitespace-pre-line text-sm leading-relaxed text-gray-600 md:text-base md:leading-8">
+                  <p className="mx-auto max-w-xl whitespace-pre-line text-sm leading-relaxed text-[#545454] md:text-base md:leading-8">
                     {item.text}
                   </p>
                 )}
@@ -715,21 +804,21 @@ const aboutData = about ?? {
                 </p>
               )}
 
-              <p className="mb-3 font-bold text-[#17233B]">
+              <p className="mb-3 font-bold text-[#545454]">
                 {item.planName}
               </p>
 
               <p
                 className={
                   isPopular
-                    ? "mb-4 text-5xl font-extrabold leading-tight text-[#17233B] md:text-6xl"
-                    : "mb-4 text-3xl font-bold leading-tight text-[#17233B]"
+                    ? "mb-4 text-5xl font-extrabold leading-tight text-[#545454] md:text-6xl"
+                    : "mb-4 text-3xl font-bold leading-tight text-[#545454]"
                 }
               >
                 {item.price}
               </p>
 
-              <p className="text-sm leading-relaxed text-gray-600 md:text-base">
+              <p className="text-sm leading-relaxed text-[#545454] md:text-base">
                 {item.description}
               </p>
             </div>
@@ -747,7 +836,7 @@ const aboutData = about ?? {
                 STUDIO ONCE
               </p>
 
-              <h2 className="text-2xl font-bold leading-snug text-gray-800 md:text-3xl">
+              <h2 className="text-2xl font-bold leading-snug text-[#545454] md:text-3xl">
                 初めての方でも安心。
                 <br />
                 マンツーマンレッスンの様子
@@ -815,14 +904,14 @@ const aboutData = about ?? {
               </p>
 
               {(item.name || item.age) && (
-                <p className="mb-4 text-sm font-bold text-[#17233B]">
+                <p className="mb-4 text-sm font-bold text-[#545454]">
                   {item.name}
                   {item.name && item.age ? " / " : ""}
                   {item.age}
                 </p>
               )}
 
-              <p className="line-clamp-5 leading-8 text-gray-700">
+              <p className="line-clamp-5 leading-8 text-[#545454]">
                 “{item.comment}”
               </p>
             </div>
@@ -869,11 +958,11 @@ const aboutData = about ?? {
                 {item.name}
               </h3>
 
-              <p className="mb-2 text-gray-600">
+              <p className="mb-2 text-[#545454]">
                 {item.address}
               </p>
 
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-[#545454]">
                 {item.hours}
               </p>
 
@@ -939,7 +1028,7 @@ const aboutData = about ?? {
               {item.title}
 
               {item.description && (
-                <p className="mt-3 leading-8 text-gray-600">
+                <p className="mt-3 leading-8 text-[#545454]">
                   {item.description}
                 </p>
               )}
@@ -988,7 +1077,7 @@ const aboutData = about ?? {
                 Q. {item.question}
               </p>
 
-              <p className="leading-8 text-gray-600">
+              <p className="leading-8 text-[#545454]">
                 A. {item.answer}
               </p>
             </div>
@@ -1009,7 +1098,7 @@ const aboutData = about ?? {
           {finalCTAData.title}
         </h2>
 
-        <p className="mb-10 whitespace-pre-line text-base leading-relaxed text-gray-700 md:text-lg md:leading-8">
+        <p className="mb-10 whitespace-pre-line text-base leading-relaxed text-[#545454] md:text-lg md:leading-8">
           {finalCTAData.text}
         </p>
 

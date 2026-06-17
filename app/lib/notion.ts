@@ -45,13 +45,18 @@ type NotionCampaign = {
   label: string;
   period: string;
   limit: string;
+  limitedText: string;
   title: string;
   text: string;
+  description: string;
   admissionOffer: string;
+  joiningOffer: string;
   discountOffer: string;
+  discountText: string;
   planName: string;
   normalPrice: string;
   campaignPrice: string;
+  reservationText: string;
   ctaText: string;
   ctaUrl: string;
   order: number;
@@ -133,14 +138,19 @@ const ctaFallback = {
 };
 
 const heroFallback = {
+  storeName: "スタジオONCE 江戸川橋・護国寺店",
+  openDate: "7月4日 OPEN",
   title: "なりたい姿勢へ。\n私らしく整う場所。",
   subtitle:
     "完全個室マンツーマンのマシンピラティス。\n姿勢・肩こり・ボディラインをあなたに合わせて整えます。",
-  topText: "MACHINE PILATES ONCE",
+  topCopy: "",
+  topText: "",
+  note: "",
+  campaignStartText: "6月20日〜 先行予約開始",
   tag1: "完全個室",
   tag2: "マンツーマン",
-  tag3: "1回7,000円〜",
-  buttonText: "体験予約はこちら",
+  tag3: "女性インストラクター",
+  buttonText: "公式LINEを追加する",
   buttonUrl: "#",
   imageUrl: "",
   isVisible: true,
@@ -245,15 +255,23 @@ export async function getHero() {
 
     const data = await response.json();
     const page = data.results?.[0];
-    console.log("HERO PROPERTIES", Object.keys(page?.properties ?? {}));
 
     return {
+      storeName: propertyText(page, "店舗名") || heroFallback.storeName,
+      openDate: propertyText(page, "オープン日") || heroFallback.openDate,
       title:
         propertyText(page, "タイトル １") ||
         propertyText(page, "タイトル") ||
         heroFallback.title,
       subtitle: propertyText(page, "サブタイトル") || heroFallback.subtitle,
+      topCopy: propertyText(page, "キャッチコピー上") || heroFallback.topCopy,
       topText: propertyText(page, "キャッチコピー上") || heroFallback.topText,
+      note: propertyText(page, "補足文") || heroFallback.note,
+      campaignStartText:
+        propertyText(page, "キャンペーン開始日") ||
+        propertyText(page, "キャンペーン開始文言") ||
+        propertyText(page, "開始日") ||
+        heroFallback.campaignStartText,
       tag1: propertyText(page, "タグ1") || heroFallback.tag1,
       tag2: propertyText(page, "タグ2") || heroFallback.tag2,
       tag3: propertyText(page, "タグ3") || heroFallback.tag3,
@@ -666,48 +684,44 @@ export async function getCampaigns(): Promise<NotionCampaign[]> {
     const data = await response.json();
 
     return (
-      data.results?.map((page: NotionPage) => ({
-        id: page.id,
-        label:
-          propertyText(page, "ラベル") ||
-          "今月限定",
-        period:
-          propertyText(page, "期間") ||
-          "7月1日〜7月30日まで",
-        limit:
-          propertyText(page, "人数限定") ||
-          "先着30名様限定",
-        title:
-          propertyText(page, "タイトル") ||
-          "",
-        text:
-          propertyText(page, "説明文") ||
-          "",
-        admissionOffer:
+      data.results?.map((page: NotionPage) => {
+        const limitedText =
+          propertyText(page, "人数限定") || "先着30名様限定";
+        const description = propertyText(page, "説明文") || "";
+        const joiningOffer =
+          propertyText(page, "入会金施策") ||
           propertyText(page, "入会金訴求") ||
-          "入会金＋体験料0円",
-        discountOffer:
-          propertyText(page, "永久割引訴求") ||
-          "月会費永久割引",
-        planName:
-          propertyText(page, "プラン名") ||
-          "月4回プラン",
-        normalPrice:
-          propertyText(page, "通常価格") ||
-          "通常29,700円",
-        campaignPrice:
-          propertyText(page, "キャンペーン価格") ||
-          "28,000円",
-        ctaText:
-          propertyText(page, "CTA文言") ||
-          "",
-        ctaUrl:
-          page?.properties?.["CTAリンク"]?.url ||
-          "",
-        order:
-          page?.properties?.["表示順"]?.number || 0,
-        imageUrl: fileUrl(page),
-      })) || []
+          "入会金＋体験料0円";
+        const discountText =
+          propertyText(page, "永久割引訴求") || "月会費永久割引";
+
+        return {
+          id: page.id,
+          label: propertyText(page, "ラベル") || "今月限定",
+          period: propertyText(page, "期間"),
+          limit: limitedText,
+          limitedText,
+          title: propertyText(page, "タイトル") || "",
+          text: description,
+          description,
+          admissionOffer: joiningOffer,
+          joiningOffer,
+          discountOffer: discountText,
+          discountText,
+          planName: propertyText(page, "プラン名") || "月4回プラン",
+          normalPrice: propertyText(page, "通常価格") || "通常29,700円",
+          campaignPrice: propertyText(page, "キャンペーン価格") || "28,000円",
+          reservationText:
+            propertyText(page, "予約開始文言") ||
+            propertyText(page, "キャンペーン開始日") ||
+            propertyText(page, "開始日") ||
+            "6月20日〜 先行予約開始",
+          ctaText: propertyText(page, "CTA文言") || "",
+          ctaUrl: page?.properties?.["CTAリンク"]?.url || "",
+          order: page?.properties?.["表示順"]?.number || 0,
+          imageUrl: fileUrl(page),
+        };
+      }) || []
     );
   } catch {
     return [];

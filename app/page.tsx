@@ -264,7 +264,7 @@ const aboutPointIcons = [Lock, User, Leaf];
       {hero.isVisible && (
   <div>
     <p className="mb-3 text-sm font-bold text-[#E89A3D]">
-      ＼{heroCampaign.reservationText}／
+      ＼先行予約受付中！／
     </p>
     <a
       href={heroCampaign.ctaUrl || hero.buttonUrl}
@@ -332,7 +332,7 @@ const aboutPointIcons = [Lock, User, Leaf];
               </div>
 
               <p className="mb-6 text-base font-bold leading-relaxed md:text-lg">
-                6月20日〜先行予約スタート！
+                先行予約受付中！
               </p>
 
               {cta.isVisible && (

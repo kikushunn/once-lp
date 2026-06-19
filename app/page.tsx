@@ -56,6 +56,26 @@ const highlightReasonTitle = (title: string) => {
   );
 };
 
+const aboutTextKeywords = [
+  "江戸川橋",
+  "護国寺駅",
+  "完全個室マンツーマン",
+];
+
+const highlightAboutText = (text: string) => {
+  const pattern = new RegExp(`(${aboutTextKeywords.join("|")})`, "g");
+
+  return text.split(pattern).map((part, index) =>
+    aboutTextKeywords.includes(part) ? (
+      <span key={`${part}-${index}`} className="font-bold text-[#E89A3D]">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+};
+
 export default async function Home() {
 
 const cta = await getCTA();
@@ -196,46 +216,20 @@ const aboutPointIcons = [Lock, User, Leaf];
       {/* 1 Hero */}
 <section className="relative overflow-hidden bg-[#fffdf8] px-6 py-10 md:py-20">
   <div className="mx-auto max-w-6xl">
-    <div className="mx-auto mb-8 max-w-md overflow-hidden rounded-[28px] border border-[#D8EAC7] bg-white text-center shadow-[0_16px_45px_rgba(23,35,59,0.08)] md:mb-12 md:max-w-2xl">
-      <p className="bg-[#E89A3D] px-4 py-2 text-sm font-bold tracking-[0.18em] text-white">
-        {hero.openDate}
+    <div className="mx-auto mb-8 max-w-md rounded-[28px] border border-[#D8EAC7] bg-white px-5 py-9 text-center shadow-[0_16px_45px_rgba(23,35,59,0.08)] md:mb-12 md:max-w-2xl md:px-10 md:py-12">
+      <p className="whitespace-nowrap text-[25px] font-extrabold leading-none tracking-normal text-[#E89A3D] md:text-[44px]">
+        7月4日 GRAND OPEN ✨
       </p>
 
-      <div className="bg-[#fffdf8] px-5 py-6 md:px-8 md:py-8">
-        <div className="flex flex-nowrap items-baseline justify-center gap-1 whitespace-nowrap text-center font-bold leading-none">
-          <span className="text-[22px] text-[#545454] md:text-[34px]">先着</span>
-          <span className="text-[52px] text-[#E89A3D] md:text-[72px]">30名様</span>
-          <span className="text-[22px] text-[#545454] md:text-[34px]">限定</span>
-        </div>
-
-        <p className="mx-auto mt-4 inline-flex rounded-full bg-[#D8EAC7] px-5 py-2 text-lg font-bold text-[#545454] md:text-xl">
-          {heroCampaign.discountText}
-        </p>
-
-        <div className="mt-4 flex flex-col items-center justify-center gap-2">
-          <span className="text-sm font-bold text-[#545454]/60 line-through">
-            {heroCampaign.normalPrice}
-          </span>
-          <div className="flex items-end justify-center gap-2">
-            <span className="mb-1 rounded-full border border-[#E89A3D]/30 bg-white px-3 py-1 text-xs font-bold text-[#545454] shadow-sm md:text-sm">
-              {heroCampaign.planName}
-            </span>
-            <span className="text-3xl font-extrabold leading-none text-[#E89A3D] md:text-4xl">
-              {heroCampaign.campaignPrice}
-            </span>
-          </div>
-        </div>
-
-        <p className="mt-4 text-sm font-bold leading-relaxed text-[#E89A3D] md:text-base">
-          {hero.campaignStartText || heroCampaign.reservationText}
-        </p>
-      </div>
+      <p className="mt-5 whitespace-nowrap text-[12px] font-bold leading-relaxed text-[#545454] md:text-base">
+        江戸川橋駅 徒歩5分 ｜ 護国寺駅 徒歩7分
+      </p>
     </div>
 
     <div className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
 
     {/* 左側テキスト */}
-    <div className="order-2 w-full min-w-0 text-center md:order-1 md:max-w-[680px] md:text-left">
+    <div className="order-1 w-full min-w-0 text-center md:order-1 md:max-w-[680px] md:text-left">
       {hero.topCopy && (
         <p className="mb-4 text-sm font-bold tracking-[0.2em] text-[#E89A3D]">
           {hero.topCopy}
@@ -245,6 +239,16 @@ const aboutPointIcons = [Lock, User, Leaf];
       <h1 className="mx-auto mb-6 max-w-full break-words whitespace-pre-line text-balance text-[42px] font-bold leading-[1.18] tracking-normal text-[#545454] [overflow-wrap:anywhere] md:mx-0 md:max-w-[640px] md:text-[clamp(2.8rem,4.2vw,4.8rem)] md:leading-[1.12] md:tracking-[-0.04em]">
   {heroTitle}
 </h1>
+
+<div className="relative mb-8 w-full min-w-0 overflow-hidden md:hidden">
+      <div className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-[#D8EAC7] opacity-70" />
+      <div className="absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-[#F6C58A] opacity-70" />
+
+      <ImageBox
+        label="Hero"
+        image={hero.imageUrl || "/images/hero.jpg"}
+      />
+    </div>
 
 <div className="mx-auto mb-8 grid max-w-sm grid-cols-3 gap-3 md:mx-0 md:max-w-md md:gap-4">
       {[hero.tag1, hero.tag2, hero.tag3].map((item) => (
@@ -275,7 +279,7 @@ const aboutPointIcons = [Lock, User, Leaf];
     </div>
 
     {/* 右側画像 */}
-    <div className="relative order-1 w-full min-w-0 overflow-hidden md:order-2">
+    <div className="relative order-2 hidden w-full min-w-0 overflow-hidden md:order-2 md:block">
       <div className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-[#D8EAC7] opacity-70" />
       <div className="absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-[#F6C58A] opacity-70" />
 
@@ -297,28 +301,16 @@ const aboutPointIcons = [Lock, User, Leaf];
               <div className="absolute right-6 top-6 h-16 w-16 rounded-full bg-[#DDE8CC]" />
               <div className="absolute -bottom-8 -left-8 h-28 w-28 rounded-full bg-[#E89B3A]/15" />
 
-              <p className="relative mb-4 text-sm font-bold tracking-[0.28em] text-[#C9A45C]">
-                GRAND OPEN
-              </p>
-
-              <h2 className="relative mb-5 text-3xl font-bold leading-tight text-[#C9A45C] md:text-5xl">
-                7月4日
-                <br />
-                GRAND OPEN！
-              </h2>
-
-              <p className="relative mb-4 text-xl font-bold leading-relaxed md:text-2xl">
-                スタジオONCE
-                <br />
-                江戸川橋・護国寺店
-              </p>
-
               <p className="relative rounded-2xl bg-white/80 px-4 py-3 text-sm leading-relaxed text-[#545454] shadow-sm md:text-base">
                 ※近隣の江戸川橋・神楽坂店と相互利用可能です✨
               </p>
             </div>
 
             <div className="rounded-[28px] bg-[#DDE8CC]/45 p-6 text-center md:p-8">
+              <p className="mb-3 text-xs font-bold tracking-[0.28em] text-[#C9A45C]">
+                OPEN CAMPAIGN
+              </p>
+
               <p className="mx-auto mb-5 inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold text-[#545454] shadow-sm">
                 <span>7月30日まで先着</span>
                 <span className="!text-[#E89B3A]">30名様</span>
@@ -358,6 +350,43 @@ const aboutPointIcons = [Lock, User, Leaf];
         </div>
       </section>
 
+      {sessionImages.length > 0 && (
+        <section className="bg-[#FFFDF8] px-6 py-16">
+          <div className="mx-auto max-w-6xl overflow-hidden">
+            <div className="mb-8 text-center">
+              <p className="mb-3 text-xs font-bold tracking-[0.35em] text-[#E89A3D]">
+                STUDIO ONCE
+              </p>
+
+              <h2 className="text-2xl font-bold leading-snug text-[#545454] md:text-3xl">
+                初めての方でも安心。
+                <br />
+                マンツーマンレッスンの様子
+              </h2>
+            </div>
+
+            <div className="relative -mx-6 overflow-hidden py-2">
+              <div className="session-slider-track flex gap-5 px-6 md:gap-6">
+                {[...sessionImages, ...sessionImages].map(
+                  (item, index) => (
+                    <Image
+                      key={`campaign-session-${item.id}-${index}`}
+                      src={item.imageUrl}
+                      alt={item.title || "セッション風景"}
+                      width={360}
+                      height={288}
+                      sizes="(min-width: 768px) 360px, 260px"
+                      unoptimized
+                      className="h-64 w-[260px] shrink-0 rounded-[28px] object-cover shadow-md md:h-72 md:w-[360px]"
+                    />
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {aboutData.imageUrl && (
         <section className="bg-[#FFFDF8] px-6 py-[60px]">
           <div className="mx-auto max-w-6xl">
@@ -387,7 +416,7 @@ const aboutPointIcons = [Lock, User, Leaf];
               </h2>
 
               <p className="whitespace-pre-line leading-relaxed text-[#545454] md:leading-8">
-                {aboutData.text}
+                {highlightAboutText(aboutData.text)}
               </p>
             </div>
 

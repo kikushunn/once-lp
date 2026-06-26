@@ -1147,6 +1147,17 @@ const aboutPointIcons = [Lock, User, Leaf];
 )}
       </section>
 
+      <a
+        href={heroCampaign.ctaUrl || hero.buttonUrl || cta.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="line-click fixed bottom-6 right-4 z-50 flex h-[60px] w-[160px] items-center justify-center rounded-full border-2 border-white bg-[#E89A3D] text-center text-sm font-bold text-white shadow-xl transition active:scale-95 hover:scale-95 md:text-base"
+      >
+        <span className="rounded-full bg-[#06C755] px-4 py-2 text-white shadow-sm">
+          LINEで予約 →
+        </span>
+      </a>
+
     </main>
   );
 }

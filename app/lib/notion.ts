@@ -686,7 +686,7 @@ export async function getCampaigns(): Promise<NotionCampaign[]> {
     return (
       data.results?.map((page: NotionPage) => {
         const limitedText =
-          propertyText(page, "人数限定") || "先着30名様限定";
+          propertyText(page, "人数限定") || "先着50名様限定";
         const description = propertyText(page, "説明文") || "";
         const joiningOffer =
           propertyText(page, "入会金施策") ||

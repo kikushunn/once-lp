@@ -104,7 +104,7 @@ const heroCampaign = campaigns[0] ?? {
   description: "",
   label: "今月限定",
   period: "7月30日まで",
-  limitedText: "30名様限定",
+  limitedText: "50名様限定",
   joiningOffer: "入会金＋体験料0円",
   discountText: "月会費永久割引",
   normalPrice: "通常29,700円",
@@ -313,7 +313,7 @@ const aboutPointIcons = [Lock, User, Leaf];
 
               <p className="mx-auto mb-5 inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold text-[#545454] shadow-sm">
                 <span>7月30日まで先着</span>
-                <span className="!text-[#E89B3A]">30名様</span>
+                <span className="!text-[#E89B3A]">50名様</span>
                 <span>限定</span>
               </p>
 
@@ -672,7 +672,7 @@ const aboutPointIcons = [Lock, User, Leaf];
                 {
                   label: "今月限定",
                   period: "7月1日〜7月30日まで",
-                  limit: "先着30名様限定",
+                  limit: "先着50名様限定",
                   title: "キャンペーン",
                   text: "まずはお気軽に体験予約ください",
                   admissionOffer: "入会金＋体験料0円",
@@ -708,7 +708,7 @@ const aboutPointIcons = [Lock, User, Leaf];
                     <div className="limited-wrapper flex flex-col items-center gap-0 text-center font-bold leading-[0.92]">
                       <span className="block text-4xl text-[#545454]">先着</span>
                       <span className="highlight block text-7xl font-bold text-[#E89A3D]">
-                        30名様
+                        50名様
                       </span>
                       <span className="block text-4xl text-[#545454]">限定</span>
                     </div>

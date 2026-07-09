@@ -141,6 +141,8 @@ const aboutData = about ?? {
   imageUrl: "",
 };
 const aboutPointIcons = [Lock, User, Leaf];
+const primaryCtaLead = "オープンキャンペーン実施中！";
+const primaryCtaLabel = "０円体験予約はこちら";
     
   return (
     <main className="bg-[#fffdf8] text-[#545454]">
@@ -264,7 +266,7 @@ const aboutPointIcons = [Lock, User, Leaf];
       {hero.isVisible && (
   <div>
     <p className="mb-3 text-sm font-bold text-[#E89A3D]">
-      ＼０円体験予約-受付中／
+      {primaryCtaLead}
     </p>
     <a
       href={heroCampaign.ctaUrl || hero.buttonUrl}
@@ -272,7 +274,7 @@ const aboutPointIcons = [Lock, User, Leaf];
       rel="noopener noreferrer"
       className="inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-4 font-bold text-white shadow-md md:px-10"
     >
-      {heroCampaign.ctaText || hero.buttonText}
+      {primaryCtaLabel}
     </a>
   </div>
 )}
@@ -331,8 +333,8 @@ const aboutPointIcons = [Lock, User, Leaf];
                 </p>
               </div>
 
-              <p className="mb-6 text-base font-bold leading-relaxed md:text-lg">
-                ０円体験予約-受付中
+              <p className="mb-3 text-base font-bold leading-relaxed text-[#E89B3A] md:text-lg">
+                {primaryCtaLead}
               </p>
 
               {cta.isVisible && (
@@ -342,7 +344,7 @@ const aboutPointIcons = [Lock, User, Leaf];
                   rel="noopener noreferrer"
                   className="gtm-cta-click inline-flex w-full items-center justify-center whitespace-nowrap rounded-full bg-[#E89B3A] px-6 py-4 text-base font-bold text-white shadow-md transition hover:opacity-90 md:w-auto md:px-10"
                 >
-                  公式LINEを追加する
+                  {primaryCtaLabel}
                 </a>
               )}
             </div>
@@ -1131,13 +1133,16 @@ const aboutPointIcons = [Lock, User, Leaf];
 
         {finalCTAData.isVisible && (
   <div className="relative inline-block">
+    <p className="mb-3 text-sm font-bold text-[#E89A3D] md:text-base">
+      {primaryCtaLead}
+    </p>
     <a
       href={finalCTAData.buttonUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="gtm-cta-click inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-5 text-base font-bold text-white shadow-md md:px-10 md:text-lg"
     >
-      {finalCTAData.buttonText}
+      {primaryCtaLabel}
     </a>
 
     <div className="absolute -bottom-9 -right-5 rounded-full bg-white px-3 py-1 text-sm font-bold text-[#E89A3D] shadow-sm animate-bounce">

@@ -232,11 +232,16 @@ const primaryCtaLabel = "０円体験予約はこちら";
 
     {/* 左側テキスト */}
     <div className="order-1 w-full min-w-0 text-center md:order-1 md:max-w-[680px] md:text-left">
-      {hero.topCopy && (
-        <p className="mb-4 text-sm font-bold tracking-[0.2em] text-[#E89A3D]">
-          {hero.topCopy}
-        </p>
-      )}
+      <div className="mx-auto mb-4 flex w-full max-w-[360px] items-center justify-center gap-2 md:mx-0 md:mb-5 md:max-w-none md:justify-start md:gap-3">
+        {[hero.tag1, hero.tag2, hero.tag3].map((item) => (
+          <span
+            key={item}
+            className="flex min-h-9 flex-1 items-center justify-center rounded-full bg-gradient-to-r from-[#E89A3D] to-[#F6C58A] px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white shadow-[0_10px_24px_rgba(232,154,61,0.22)] md:flex-none md:px-5 md:text-sm"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
 
       <h1 className="mx-auto mb-6 max-w-full break-words whitespace-pre-line text-balance text-[42px] font-bold leading-[1.18] tracking-normal text-[#545454] [overflow-wrap:anywhere] md:mx-0 md:max-w-[640px] md:text-[clamp(2.8rem,4.2vw,4.8rem)] md:leading-[1.12] md:tracking-[-0.04em]">
   {heroTitle}
@@ -251,17 +256,6 @@ const primaryCtaLabel = "０円体験予約はこちら";
         image={hero.imageUrl || "/images/hero.jpg"}
       />
     </div>
-
-<div className="mx-auto mb-8 grid max-w-sm grid-cols-3 gap-3 md:mx-0 md:max-w-md md:gap-4">
-      {[hero.tag1, hero.tag2, hero.tag3].map((item) => (
-        <div
-          key={item}
-          className="flex aspect-square items-center justify-center rounded-full bg-[#D8EAC7] p-3 text-center text-[12px] font-bold leading-snug text-[#545454] shadow-sm md:text-sm"
-        >
-          {item}
-        </div>
-      ))}
-      </div>
 
       {hero.isVisible && (
   <div>

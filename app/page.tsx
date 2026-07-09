@@ -244,7 +244,7 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
         ))}
       </div>
 
-      <h1 className="mx-auto mb-6 max-w-full break-words whitespace-pre-line text-balance text-[42px] font-bold leading-[1.18] tracking-normal text-[#545454] [overflow-wrap:anywhere] md:mx-0 md:max-w-[640px] md:text-[clamp(2.8rem,4.2vw,4.8rem)] md:leading-[1.12] md:tracking-[-0.04em]">
+      <h1 className="mx-auto mb-7 max-w-full break-words whitespace-pre-line text-balance text-[37px] font-semibold leading-[1.26] tracking-normal text-[#545454] [overflow-wrap:anywhere] md:mx-0 md:mb-8 md:max-w-[620px] md:text-[clamp(2.45rem,3.7vw,4.2rem)] md:leading-[1.2] md:tracking-[-0.025em]">
   {heroTitle}
 </h1>
 

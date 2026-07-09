@@ -259,12 +259,16 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
     </div>
 
 <div className="mx-auto mb-8 grid max-w-sm grid-cols-3 gap-3 md:mx-0 md:max-w-md md:gap-4">
-      {[hero.tag1, hero.tag2, hero.tag3].map((item) => (
+      {[hero.tag1, hero.tag2, hero.tag3].map((item, index) => (
         <div
           key={item}
-          className="flex aspect-square items-center justify-center rounded-full bg-[#D8EAC7] p-3 text-center text-[12px] font-bold leading-snug text-[#545454] shadow-sm md:text-sm"
+          className="relative flex aspect-square items-center justify-center overflow-hidden rounded-full border border-[#E8C27A]/45 bg-[radial-gradient(circle_at_30%_22%,#FFFFFF_0%,#EEF7E7_42%,#D8EAC7_100%)] p-3 text-center text-[12px] font-extrabold leading-snug text-[#3F4A3F] shadow-[0_16px_36px_rgba(84,84,84,0.14)] ring-1 ring-white/80 md:text-sm"
         >
-          {item}
+          <span className="absolute top-3 rounded-full bg-white/80 px-2 py-0.5 text-[8px] font-black tracking-[0.12em] text-[#E89A3D] shadow-sm md:text-[9px]">
+            POINT {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="relative mt-4 max-w-[86%]">{item}</span>
+          <span className="absolute bottom-3 h-1.5 w-9 rounded-full bg-[#E89A3D]/65 md:w-11" />
         </div>
       ))}
       </div>

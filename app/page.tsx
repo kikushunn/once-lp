@@ -94,7 +94,7 @@ const LineCtaContent = ({ label }: { label: string }) => (
     >
       LINE
     </span>
-    <span className="min-w-0 flex-1 text-center">{label}</span>
+    <span className="min-w-0 flex-1 whitespace-nowrap text-center">{label}</span>
     <span aria-hidden="true" className="shrink-0 text-xl leading-none">
       →
     </span>
@@ -1164,7 +1164,7 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
         href={heroCampaign.ctaUrl || hero.buttonUrl || cta.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="line-click fixed bottom-6 right-4 z-50 flex h-16 w-[190px] items-center justify-center gap-2 rounded-full bg-[#06C755] px-3 text-center text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl active:scale-95 md:w-[210px] md:text-base"
+        className="line-click fixed bottom-6 right-4 z-50 flex h-16 w-[220px] items-center justify-center gap-2 rounded-full bg-[#06C755] px-4 text-center text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl active:scale-95 md:w-[230px] md:text-base"
       >
         <LineCtaContent label="LINEで体験予約" />
       </a>

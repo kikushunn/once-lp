@@ -86,6 +86,21 @@ const getServiceSupportText = (name: string) => {
   return "一人ひとりの身体に合わせて、心地よく変化を重ねます。";
 };
 
+const LineCtaContent = ({ label }: { label: string }) => (
+  <>
+    <span
+      aria-hidden="true"
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/95 text-[9px] font-black leading-none text-[#06C755] shadow-sm"
+    >
+      LINE
+    </span>
+    <span className="min-w-0 flex-1 text-center">{label}</span>
+    <span aria-hidden="true" className="shrink-0 text-xl leading-none">
+      →
+    </span>
+  </>
+);
+
 export default async function Home() {
 
 const cta = await getCTA();
@@ -291,9 +306,9 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
       href={heroCampaign.ctaUrl || hero.buttonUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-block whitespace-nowrap rounded-full bg-[#E89A3D] px-8 py-4 font-bold text-white shadow-md md:px-10"
+      className="inline-flex min-h-14 items-center justify-center gap-3 whitespace-nowrap rounded-full bg-[#06C755] px-6 py-3.5 text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl active:scale-95 md:min-h-16 md:px-8 md:text-base"
     >
-      {primaryCtaLabel}
+      <LineCtaContent label={primaryCtaLabel} />
     </a>
   </div>
 )}
@@ -361,9 +376,9 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
                   href={cta.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="gtm-cta-click inline-flex w-full items-center justify-center whitespace-nowrap rounded-full bg-[#E89B3A] px-6 py-4 text-base font-bold text-white shadow-md transition hover:opacity-90 md:w-auto md:px-10"
+                  className="gtm-cta-click inline-flex min-h-14 w-full items-center justify-center gap-3 whitespace-nowrap rounded-full bg-[#06C755] px-5 py-3.5 text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl active:scale-95 md:min-h-16 md:w-auto md:px-8 md:text-base"
                 >
-                  {primaryCtaLabel}
+                  <LineCtaContent label={primaryCtaLabel} />
                 </a>
               )}
             </div>
@@ -857,9 +872,9 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
                     href={item.ctaUrl || cta.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="gtm-cta-click mt-8 inline-block w-[90%] max-w-sm whitespace-nowrap rounded-full bg-[#E89A3D] px-6 py-4 text-center font-bold text-white shadow-md md:w-auto md:px-10"
+                    className="gtm-cta-click mt-8 inline-flex min-h-14 w-[90%] max-w-sm items-center justify-center gap-3 whitespace-nowrap rounded-full bg-[#06C755] px-5 py-3.5 text-center text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl active:scale-95 md:min-h-16 md:w-auto md:px-8 md:text-base"
                   >
-                    {item.ctaText || cta.text}
+                    <LineCtaContent label={item.ctaText || cta.text} />
                   </a>
                 )}
               </div>
@@ -1149,11 +1164,9 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
         href={heroCampaign.ctaUrl || hero.buttonUrl || cta.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="line-click fixed bottom-6 right-4 z-50 flex h-[60px] w-[160px] items-center justify-center rounded-full border-2 border-white bg-[#E89A3D] text-center text-sm font-bold text-white shadow-xl transition active:scale-95 hover:scale-95 md:text-base"
+        className="line-click fixed bottom-6 right-4 z-50 flex h-16 w-[190px] items-center justify-center gap-2 rounded-full bg-[#06C755] px-3 text-center text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl active:scale-95 md:w-[210px] md:text-base"
       >
-        <span className="rounded-full bg-[#06C755] px-4 py-2 text-white shadow-sm">
-          LINEで予約 →
-        </span>
+        <LineCtaContent label="LINEで体験予約" />
       </a>
 
     </main>

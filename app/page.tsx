@@ -1079,6 +1079,20 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
             </div>
           ))}
 
+          <div className="overflow-hidden rounded-3xl border border-[#D8EAC7] bg-white shadow-sm">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.9845625766266!2d139.7307686!3d35.7130578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d338878fe93%3A0xaa7ea3a49550f260!2z44Oe44K344Oz44OU44Op44OG44Kj44K544K544K_44K444KqT05DReaxn-aIuOW3neapi-ODu-itt-WbveWvuuW6lw!5e1!3m2!1sja!2sjp!4v1784360219014!5m2!1sja!2sjp"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="h-[320px] w-full md:h-[450px]"
+              title="スタジオONCE Googleマップ"
+            />
+          </div>
+
         </div>
       </section>
 

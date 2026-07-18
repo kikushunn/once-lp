@@ -90,7 +90,7 @@ const getServiceImage = (name: string) => {
   if (name.includes("姿勢")) {
     return {
       alt: "背筋が自然に伸びた女性の立ち姿",
-      objectPosition: "center 28%",
+      objectPosition: "center 42%",
       src: "/images/services/posture.jpg",
     };
   }

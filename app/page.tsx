@@ -650,11 +650,6 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
           </p>
         </div>
 
-        <ImageBox
-          label="できること"
-          image={services[0]?.imageUrl || "/images/service.jpg"}
-        />
-
         <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
           {(services.length > 0
             ? services.map((service) => service.name)

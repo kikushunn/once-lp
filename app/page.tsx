@@ -288,11 +288,15 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
 <section className="relative overflow-hidden bg-[#fffdf8] px-6 py-10 md:py-20">
   <div className="mx-auto max-w-6xl">
     <div className="mx-auto mb-8 max-w-md rounded-[28px] border border-[#D8EAC7] bg-white px-5 py-9 text-center shadow-[0_16px_45px_rgba(23,35,59,0.08)] md:mb-12 md:max-w-2xl md:px-10 md:py-12">
-      <p className="whitespace-nowrap text-[25px] font-extrabold leading-none tracking-normal text-[#E89A3D] md:text-[44px]">
-        7月4日 GRAND OPEN ✨
+      <p className="text-[19px] font-extrabold leading-snug tracking-normal text-[#545454] md:text-[28px]">
+        スタジオONCE江戸川橋・護国寺店
       </p>
 
-      <p className="mt-5 whitespace-nowrap text-[12px] font-bold leading-relaxed text-[#545454] md:text-base">
+      <p className="mt-3 text-[24px] font-extrabold leading-tight tracking-normal text-[#E89A3D] md:text-[40px]">
+        オープニングキャンペーン実施中✨
+      </p>
+
+      <p className="mt-5 whitespace-nowrap text-[12px] font-extrabold leading-relaxed text-[#545454] md:text-base">
         江戸川橋駅 徒歩5分 ｜ 護国寺駅 徒歩7分
       </p>
     </div>

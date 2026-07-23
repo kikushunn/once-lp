@@ -870,7 +870,7 @@ const heroConcernLabels = ["姿勢改善", "肩こり・腰痛", "ボディメ�
 
               <div className="relative rounded-[1.5rem] bg-white px-4 py-6 shadow-sm md:px-12 md:py-12">
                 <p className="mx-auto mb-4 inline-block rounded-full bg-[#E89A3D] px-4 py-2 text-xs font-bold tracking-[0.08em] text-white shadow-sm md:mb-5 md:px-5 md:text-sm md:tracking-[0.18em]">
-                  {item.label}
+                  期間限定
                 </p>
 
                 <div className="mb-6 space-y-3 md:mb-8">
